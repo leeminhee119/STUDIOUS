@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import BellIcon from "@/public/icons/bell.svg";
-import MessageIcon from "@/public/icons/message.svg";
-import DefaultProfileIcon from "@/public/icons/defaultProfile.svg";
-import MenuIcon from "@/public/icons/menu.svg";
-import { postKakaoLogout } from "@/pages/api/socialLoginLogout";
+import { ReactComponent as BellIcon } from "assets/icons/bell.svg";
+import { ReactComponent as MessageIcon } from "assets/icons/message.svg";
+import { ReactComponent as DefaultProfileIcon } from "assets/icons/defaultProfile.svg";
+import { ReactComponent as MenuIcon } from "assets/icons/menu.svg";
+import { postKakaoLogout } from "apis/user";
 
 const NavUser = () => {
   const handleLogout = () => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { postLogin } from "./api/user";
+import { postLogin } from "apis/user";
 import { useState } from "react";
 
 const Login = () => {

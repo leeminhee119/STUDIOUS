@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SearchIcon from "@/public/icons/search.svg";
+import { ReactComponent as SearchIcon } from "assets/icons/search.svg";
 
 const SearchBox = () => {
   return (

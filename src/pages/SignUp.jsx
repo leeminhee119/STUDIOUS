@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { postSignUp } from "./api/user";
+import { postSignUp } from "apis/user";
 
 const SignUp = () => {
   const [signUpInfo, setSignUpInfo] = useState({

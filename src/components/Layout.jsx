@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 const Layout = ({ children }) => {
-  return <MainSectionLayout>{children}</MainSectionLayout>;
+  return (
+    <main>
+      <MainSectionLayout>{children}</MainSectionLayout>;
+    </main>
+  );
 };
 
 const MainSectionLayout = styled.section`

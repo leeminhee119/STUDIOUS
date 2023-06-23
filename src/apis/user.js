@@ -1,6 +1,6 @@
 import { POST } from "./api";
-import { setToken } from "@/modules/setToken";
-import { getCookie } from "@/modules/cookie";
+import { setToken } from "../utils/setToken";
+import { getCookie } from "../utils/cookie";
 
 /* 소셜 로그인 */
 export const getKakaoToken = async (code) => {
