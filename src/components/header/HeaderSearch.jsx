@@ -3,9 +3,9 @@ import SearchBox from "./SearchBox";
 import NavGuest from "./NavGuest";
 import NavUser from "./NavUser";
 import { useState } from "react";
-import { getCookie } from "@/modules/cookie";
+import { getCookie } from "../../utils/cookie";
 
-const HeaderDefault = () => {
+const HeaderSearch = () => {
   const [isUser, setIsUser] = useState(getCookie("accessToken") ? true : false);
   return (
     <HeaderLayout>
@@ -16,7 +16,7 @@ const HeaderDefault = () => {
   );
 };
 
-export default HeaderDefault;
+export default HeaderSearch;
 
 const HeaderLayout = styled.section`
   padding: 5rem 0;
