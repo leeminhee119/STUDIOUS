@@ -4,7 +4,7 @@ import { getCookie } from "../utils/cookie";
 
 /* 소셜 로그인 */
 export const getKakaoToken = async (code) => {
-  const { data } = await POST(`/oauth/login/kakao?code=${code}`);
+  const { data } = await POST(`/oauth/authenticate/kakao?code=${code}`);
   setToken({ accessToken: data.accessToken, grantType: data.grantType });
 };
 
@@ -19,7 +19,7 @@ export const postKakaoLogout = async () => {
 };
 
 export const postNaverLogin = async (code) => {
-  const { data } = await POST(`/oauth/login/naver?code=${code}`);
+  const { data } = await POST(`/oauth/authenticate/naver?code=${code}`);
   console.log(data);
 };
 
@@ -34,7 +34,7 @@ export const postNaverLogout = async () => {
 };
 
 export const postGoogleLogin = async (code) => {
-  const { data } = await POST(`/oauth/login/google?code=${code}`);
+  const { data } = await POST(`/oauth/authenticate/google?code=${code}`);
   setToken({ accessToken: data.accessToken, grantType: data.grantType });
 };
 
