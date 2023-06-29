@@ -2,11 +2,15 @@ import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import NavGuest from "./NavGuest";
 import NavUser from "./NavUser";
-import { useState } from "react";
-import { getCookie } from "../../utils/cookie";
+import { useEffect, useState } from "react";
+import { getCookie } from "utils/cookie";
 
 const HeaderSearch = () => {
-  const [isUser, setIsUser] = useState(getCookie("accessToken") ? true : false);
+  const [isUser, setIsUser] = useState(false);
+  const cookie = getCookie("accessToken");
+  useEffect(() => {
+    cookie ? setIsUser(true) : setIsUser(false);
+  }, [cookie]);
   return (
     <HeaderLayout>
       <Logo>STUDIOUS</Logo>
