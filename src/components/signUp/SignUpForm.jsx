@@ -1,12 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { postSignUp } from "apis/user";
+import { oAuthSignUpState } from "recoil/atoms/oAuthSignUpState";
+import { useResetRecoilState } from "recoil";
+import { setToken } from "utils/setToken";
 
-const SignUpForm = ({ email, password, providerId, type }) => {
+const SignUpForm = ({ isOAuth, email, providerId, type }) => {
+  const resetOAuthSignUp = useResetRecoilState(oAuthSignUpState);
   const [signUpInfo, setSignUpInfo] = useState({
     email: email ? email : "",
-    password: password ? password : "",
-    name: "",
+    password: "",
+    nickname: "",
     providerId: providerId ? providerId : null,
     type: type ? type : null,
     phoneNumber: "",
@@ -19,32 +23,48 @@ const SignUpForm = ({ email, password, providerId, type }) => {
     setSignUpInfo((info) => ({ ...info, password: e.target.value }));
   };
   const handleChangeNickname = (e) => {
-    setSignUpInfo((info) => ({ ...info, name: e.target.value }));
+    setSignUpInfo((info) => ({ ...info, nickname: e.target.value }));
   };
   const handleChangePhoneNumber = (e) => {
     setSignUpInfo((info) => ({ ...info, phoneNumber: e.target.value }));
   };
+  const alertSignUpFail = () => {
+    alert("이미 존재하는 회원입니다.\n다른 전화번호를 사용하세요.");
+  };
+  const handleSubmitSignUp = async () => {
+    const { accessToken, grantType } = await postSignUp(
+      signUpInfo,
+      alertSignUpFail
+    );
+    setToken({ accessToken, grantType });
+    resetOAuthSignUp();
+  };
   return (
     <SignUpLayoutContainer>
       <SignUpTitle>STUDIOUS 회원가입</SignUpTitle>
-      <SignUpItem>
-        <h1>
-          이메일 <span>*</span>
-        </h1>
-        <SignUpItemInput onChange={handleChangeEmail} />
-      </SignUpItem>
-      <SignUpItem>
-        <h1>
-          비밀번호 <span>*</span>
-        </h1>
-        <SignUpItemInputBox>
-          <SignUpItemInput
-            placeholder="영문 + 숫자 + 특수문자의 조합 최소 10자"
-            onChange={handleChangePassword}
-          />
-          <SignUpItemInput placeholder="비밀번호 재입력" />
-        </SignUpItemInputBox>
-      </SignUpItem>
+      {!isOAuth && (
+        <>
+          <SignUpItem>
+            <h1>
+              이메일 <span>*</span>
+            </h1>
+            <SignUpItemInput onChange={handleChangeEmail} />
+          </SignUpItem>
+          <SignUpItem>
+            <h1>
+              비밀번호 <span>*</span>
+            </h1>
+            <SignUpItemInputBox>
+              <SignUpItemInput
+                type="password"
+                placeholder="영문 + 숫자 + 특수문자의 조합 최소 10자"
+                onChange={handleChangePassword}
+              />
+              <SignUpItemInput type="password" placeholder="비밀번호 재입력" />
+            </SignUpItemInputBox>
+          </SignUpItem>
+        </>
+      )}
       <SignUpItem>
         <h1>
           닉네임 <span>*</span>
@@ -60,9 +80,7 @@ const SignUpForm = ({ email, password, providerId, type }) => {
           onChange={handleChangePhoneNumber}
         />
       </SignUpItem>
-      <SignUpButton onClick={() => postSignUp(signUpInfo)}>
-        회원가입
-      </SignUpButton>
+      <SignUpButton onClick={handleSubmitSignUp}>회원가입</SignUpButton>
     </SignUpLayoutContainer>
   );
 };

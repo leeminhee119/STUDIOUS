@@ -1,11 +1,10 @@
 import { POST } from "./api";
-import { setToken } from "../utils/setToken";
 import { getCookie } from "../utils/cookie";
 
 /* 소셜 로그인 */
 export const postOAuthLogin = async (code, platform) => {
   const { data } = await POST(`/oauth/authenticate/${platform}?code=${code}`);
-  setToken({ accessToken: data.accessToken, grantType: data.grantType });
+  return data;
 };
 
 export const postKakaoLogout = async () => {
@@ -40,12 +39,12 @@ export const postGoogleLogout = async () => {
 
 /* 일반 로그인 */
 export const postLogin = async (body) => {
-  const { data } = await POST("/login", body);
+  const { data } = await POST("/members/login", body);
   return data;
 };
 
 /* 회원가입 */
-export const postSignUp = async (body) => {
-  const { data } = await POST("/members/signup", body);
+export const postSignUp = async (body, failCallback) => {
+  const { data } = await POST("/members/signup", body, "", failCallback);
   return data;
 };
