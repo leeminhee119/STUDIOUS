@@ -31,7 +31,8 @@ const SignUpForm = ({ isOAuth, email, providerId, type }) => {
   const alertSignUpFail = () => {
     alert("이미 존재하는 회원입니다.\n다른 전화번호를 사용하세요.");
   };
-  const handleSubmitSignUp = async () => {
+  const handleSubmitSignUp = async (e) => {
+    e.preventDefault();
     const { accessToken, grantType } = await postSignUp(
       signUpInfo,
       alertSignUpFail
@@ -80,14 +81,16 @@ const SignUpForm = ({ isOAuth, email, providerId, type }) => {
           onChange={handleChangePhoneNumber}
         />
       </SignUpItem>
-      <SignUpButton onClick={handleSubmitSignUp}>회원가입</SignUpButton>
+      <SignUpButton onClick={(e) => handleSubmitSignUp(e)}>
+        회원가입
+      </SignUpButton>
     </SignUpLayoutContainer>
   );
 };
 
 export default SignUpForm;
 
-const SignUpLayoutContainer = styled.div`
+const SignUpLayoutContainer = styled.form`
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
