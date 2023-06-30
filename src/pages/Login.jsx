@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { postLogin } from "apis/user";
 import { useState } from "react";
+import { setToken } from "utils/setToken";
 
 const Login = () => {
   const [emailPassword, setEmailPassword] = useState({
@@ -25,9 +26,10 @@ const Login = () => {
       password: e.target.value,
     }));
   };
-  const handleLocalLogin = (e) => {
+  const handleLocalLogin = async (e) => {
     e.preventDefault();
-    postLogin(emailPassword);
+    const { accessToken, grantType } = await postLogin(emailPassword);
+    setToken({ accessToken, grantType });
   };
   const handleSocialLogin = (platform) => {
     window.location.href = links[platform];
@@ -54,7 +56,11 @@ const Login = () => {
       <LoginLayout>
         <LoginTypeTitle>이메일 로그인</LoginTypeTitle>
         <LoginInput onChange={handleChangeEmail} placeholder="이메일" />
-        <LoginInput onChange={handleChangePassword} placeholder="비밀번호" />
+        <LoginInput
+          type="password"
+          onChange={handleChangePassword}
+          placeholder="비밀번호"
+        />
         <LoginButton onClick={handleLocalLogin} type="submit" />
       </LoginLayout>
 

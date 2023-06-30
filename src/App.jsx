@@ -9,6 +9,7 @@ import Header from "components/header/Header";
 import Main from "pages/Main";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
+import OAuthLogin from "pages/OAuthLogin";
 
 function App() {
   return (
@@ -22,6 +23,18 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/oauth/kakao"
+                element={<OAuthLogin platform={"kakao"} />}
+              />
+              <Route
+                path="/oauth/naver"
+                element={<OAuthLogin platform={"naver"} />}
+              />
+              <Route
+                path="/oauth/google"
+                element={<OAuthLogin platform={"google"} />}
+              />
             </Routes>
           </Layout>
         </ThemeProvider>
