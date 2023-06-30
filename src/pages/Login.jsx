@@ -56,7 +56,11 @@ const Login = () => {
       <LoginLayout>
         <LoginTypeTitle>이메일 로그인</LoginTypeTitle>
         <LoginInput onChange={handleChangeEmail} placeholder="이메일" />
-        <LoginInput onChange={handleChangePassword} placeholder="비밀번호" />
+        <LoginInput
+          type="password"
+          onChange={handleChangePassword}
+          placeholder="비밀번호"
+        />
         <LoginButton onClick={handleLocalLogin} type="submit" />
       </LoginLayout>
 
