@@ -3,12 +3,10 @@ import { ReactComponent as BellIcon } from "assets/icons/bell.svg";
 import { ReactComponent as MessageIcon } from "assets/icons/message.svg";
 import { ReactComponent as DefaultProfileIcon } from "assets/icons/defaultProfile.svg";
 import { ReactComponent as MenuIcon } from "assets/icons/menu.svg";
-import { postKakaoLogout } from "apis/user";
+import { useLogoutMutation } from "hooks/queries/useLogout";
 
 const NavUser = () => {
-  const handleLogout = () => {
-    postKakaoLogout();
-  };
+  const handleLogoutMutation = useLogoutMutation();
   return (
     <NavLayout>
       <NavButton>
@@ -22,7 +20,7 @@ const NavUser = () => {
       </NavButton>
       <NavButton>
         <MenuIcon />
-        <div onClick={handleLogout}>로그아웃</div>
+        <div onClick={() => handleLogoutMutation.mutate()}>로그아웃</div>
       </NavButton>
     </NavLayout>
   );
