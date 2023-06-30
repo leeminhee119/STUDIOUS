@@ -1,12 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { postSignUp } from "apis/user";
-import { oAuthSignUpState } from "recoil/atoms/oAuthSignUpState";
-import { useResetRecoilState } from "recoil";
-import { setToken } from "utils/setToken";
+import { useSignUpMutation } from "hooks/queries/useSignup";
 
 const SignUpForm = ({ isOAuth, email, providerId, type }) => {
-  const resetOAuthSignUp = useResetRecoilState(oAuthSignUpState);
   const [signUpInfo, setSignUpInfo] = useState({
     email: email ? email : "",
     password: "",
@@ -16,6 +12,11 @@ const SignUpForm = ({ isOAuth, email, providerId, type }) => {
     phoneNumber: "",
     roles: ["USER"],
   });
+  const handleSignUpMutation = useSignUpMutation(signUpInfo);
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    handleSignUpMutation.mutate();
+  };
   const handleChangeEmail = (e) => {
     setSignUpInfo((info) => ({ ...info, email: e.target.value }));
   };
@@ -27,18 +28,6 @@ const SignUpForm = ({ isOAuth, email, providerId, type }) => {
   };
   const handleChangePhoneNumber = (e) => {
     setSignUpInfo((info) => ({ ...info, phoneNumber: e.target.value }));
-  };
-  const alertSignUpFail = () => {
-    alert("이미 존재하는 회원입니다.\n다른 전화번호를 사용하세요.");
-  };
-  const handleSubmitSignUp = async (e) => {
-    e.preventDefault();
-    const { accessToken, grantType } = await postSignUp(
-      signUpInfo,
-      alertSignUpFail
-    );
-    setToken({ accessToken, grantType });
-    resetOAuthSignUp();
   };
   return (
     <SignUpLayoutContainer>
@@ -81,9 +70,7 @@ const SignUpForm = ({ isOAuth, email, providerId, type }) => {
           onChange={handleChangePhoneNumber}
         />
       </SignUpItem>
-      <SignUpButton onClick={(e) => handleSubmitSignUp(e)}>
-        회원가입
-      </SignUpButton>
+      <SignUpButton onClick={handleSignUp}>회원가입</SignUpButton>
     </SignUpLayoutContainer>
   );
 };
