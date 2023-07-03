@@ -7,7 +7,7 @@ export const useLogoutMutation = () => {
   return useMutation(() => postLogout(), {
     onSuccess: () => {
       removeCookie("accessToken");
-      window.location.refresh();
+      window.location.reload();
     },
   });
 };
