@@ -42,7 +42,7 @@ const OAuthLogin = ({ platform }) => {
 
   useEffect(() => {
     oAuthLoginMutation.mutate();
-  });
+  }, []);
 
   return <>로그인 중입니다.</>;
 };
