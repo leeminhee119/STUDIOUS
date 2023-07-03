@@ -1,6 +1,7 @@
 import { postLogin, postOAuthLogin } from "apis/user";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { loginFailCallback } from "utils/loginFail";
 import { setToken } from "utils/setToken";
 
 export const useOAuthLoginMutation = (code, platform, successCallback) => {
@@ -21,5 +22,6 @@ export const useLoginMutation = (body) => {
       setToken({ accessToken, grantType });
       navigate("/");
     },
+    onError: (error) => loginFailCallback(error.response.data),
   });
 };
