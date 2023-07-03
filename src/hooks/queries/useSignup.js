@@ -15,6 +15,8 @@ export const useSignUpMutation = (signUpInfo) => {
       resetOAuthSignUp();
       navigate("/");
     },
-    onError: (error) => alertFailMessage(error.response.data),
+    onError: (error) => {
+      if (error.response.status === 400) alertFailMessage(error.response.data);
+    },
   });
 };

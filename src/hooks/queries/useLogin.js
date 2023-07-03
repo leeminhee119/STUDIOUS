@@ -9,7 +9,9 @@ export const useOAuthLoginMutation = (code, platform, successCallback) => {
     onSuccess: ({ exist, jwtTokenResponse, userInfo }) => {
       successCallback({ exist, jwtTokenResponse, userInfo });
     },
-    onError: (error) => alertFailMessage(error.response.data),
+    onError: (error) => {
+      if (error.response.status === 400) alertFailMessage(error.response.data);
+    },
   });
 };
 
@@ -20,6 +22,8 @@ export const useLoginMutation = (body) => {
       setToken({ accessToken, grantType });
       navigate("/");
     },
-    onError: (error) => alertFailMessage(error.response.data),
+    onError: (error) => {
+      if (error.response.status === 400) alertFailMessage(error.response.data);
+    },
   });
 };
