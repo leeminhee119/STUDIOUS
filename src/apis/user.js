@@ -1,8 +1,6 @@
 import { POST } from "./api";
 import { getCookie } from "utils/cookie";
 
-const token = getCookie("accessToken");
-
 /* 소셜 로그인 */
 export const postOAuthLogin = async (code, platform) => {
   const { data } = await POST(`/oauth/authenticate/${platform}?code=${code}`);
@@ -23,6 +21,6 @@ export const postSignUp = async (body, failCallback) => {
 
 /* 로그아웃 */
 export const postLogout = async () => {
-  const { data } = await POST("/members/logout", {}, token);
+  const { data } = await POST("/members/logout", {}, getCookie("accessToken"));
   return data;
 };
