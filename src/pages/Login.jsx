@@ -1,8 +1,17 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginMutation } from "hooks/queries/useLogin";
+import { useNavigate } from "react-router-dom";
+import { getCookie } from "utils/cookie";
 
 const Login = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      alert("이미 로그인한 상태입니다.");
+      navigate("/");
+    }
+  }, []);
   const [emailPassword, setEmailPassword] = useState({
     email: "",
     password: "",
