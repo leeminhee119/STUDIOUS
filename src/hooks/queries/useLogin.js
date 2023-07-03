@@ -1,5 +1,7 @@
-import { postOAuthLogin } from "apis/user";
+import { postLogin, postOAuthLogin } from "apis/user";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "utils/setToken";
 
 export const useOAuthLoginMutation = (code, platform, successCallback) => {
   return useMutation(() => postOAuthLogin(code, platform), {
@@ -8,6 +10,16 @@ export const useOAuthLoginMutation = (code, platform, successCallback) => {
     },
     onError: (error) => {
       console.error(error);
+    },
+  });
+};
+
+export const useLoginMutation = (body) => {
+  const navigate = useNavigate();
+  return useMutation(() => postLogin(body), {
+    onSuccess: ({ grantType, accessToken }) => {
+      setToken({ accessToken, grantType });
+      navigate("/");
     },
   });
 };

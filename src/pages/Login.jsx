@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { postLogin } from "apis/user";
 import { useState } from "react";
-import { setToken } from "utils/setToken";
+import { useLoginMutation } from "hooks/queries/useLogin";
 
 const Login = () => {
   const [emailPassword, setEmailPassword] = useState({
     email: "",
     password: "",
   });
+  const loginMutation = useLoginMutation(emailPassword);
   const links = {
     kakao: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`,
     naver: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_REST_API_KEY}&state=test&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}`,
@@ -26,10 +26,9 @@ const Login = () => {
       password: e.target.value,
     }));
   };
-  const handleLocalLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    const { accessToken, grantType } = await postLogin(emailPassword);
-    setToken({ accessToken, grantType });
+    loginMutation.mutate();
   };
   const handleSocialLogin = (platform) => {
     window.location.href = links[platform];
@@ -62,7 +61,7 @@ const Login = () => {
             onChange={handleChangePassword}
             placeholder="비밀번호"
           />
-          <LoginButton onClick={handleLocalLogin} type="submit" />
+          <LoginButton onClick={handleLogin} type="submit" />
         </LoginLayout>
       </form>
 
