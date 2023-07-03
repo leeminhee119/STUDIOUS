@@ -4,6 +4,7 @@ import { setToken } from "utils/setToken";
 import { useResetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { oAuthSignUpState } from "recoil/atoms/oAuthSignUpState";
+import { alertFailMessage } from "utils/failCallback";
 
 export const useSignUpMutation = (signUpInfo) => {
   const resetOAuthSignUp = useResetRecoilState(oAuthSignUpState);
@@ -14,8 +15,6 @@ export const useSignUpMutation = (signUpInfo) => {
       resetOAuthSignUp();
       navigate("/");
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError: (error) => alertFailMessage(error.response.data),
   });
 };

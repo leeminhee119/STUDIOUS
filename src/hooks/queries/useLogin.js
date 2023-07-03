@@ -1,7 +1,7 @@
 import { postLogin, postOAuthLogin } from "apis/user";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { loginFailCallback } from "utils/loginFail";
+import { alertFailMessage } from "utils/failCallback";
 import { setToken } from "utils/setToken";
 
 export const useOAuthLoginMutation = (code, platform, successCallback) => {
@@ -9,9 +9,7 @@ export const useOAuthLoginMutation = (code, platform, successCallback) => {
     onSuccess: ({ exist, jwtTokenResponse, userInfo }) => {
       successCallback({ exist, jwtTokenResponse, userInfo });
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError: (error) => alertFailMessage(error.response.data),
   });
 };
 
@@ -22,6 +20,6 @@ export const useLoginMutation = (body) => {
       setToken({ accessToken, grantType });
       navigate("/");
     },
-    onError: (error) => loginFailCallback(error.response.data),
+    onError: (error) => alertFailMessage(error.response.data),
   });
 };
