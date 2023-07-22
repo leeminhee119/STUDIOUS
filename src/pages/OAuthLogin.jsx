@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { postOAuthLogin } from "apis/user";
+import { useOAuthLoginMutation } from "hooks/queries/useLogin";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "utils/setToken";
 import { oAuthSignUpState } from "recoil/atoms/oAuthSignUpState";
@@ -12,11 +12,8 @@ const OAuthLogin = ({ platform }) => {
   const code = params.get("code");
 
   const setOAuthSignUp = useSetRecoilState(oAuthSignUpState);
-  const fetchOAuthLogin = async () => {
-    const { exist, jwtTokenResponse, userInfo } = await postOAuthLogin(
-      code,
-      platform
-    );
+
+  const oAuthLoginSuccessCallback = ({ exist, jwtTokenResponse, userInfo }) => {
     if (exist) {
       try {
         setToken({
@@ -36,8 +33,15 @@ const OAuthLogin = ({ platform }) => {
       navigate("/signup");
     }
   };
+
+  const oAuthLoginMutation = useOAuthLoginMutation(
+    code,
+    platform,
+    oAuthLoginSuccessCallback
+  );
+
   useEffect(() => {
-    fetchOAuthLogin();
+    oAuthLoginMutation.mutate();
   }, []);
 
   return <>로그인 중입니다.</>;

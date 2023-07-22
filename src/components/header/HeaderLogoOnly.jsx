@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import Logo from "./Logo";
 
 const HeaderLogoOnly = () => {
   return (
     <HeaderLayout>
-      <Logo>STUDIOUS</Logo>
+      <Logo />
     </HeaderLayout>
   );
 };
@@ -16,8 +17,4 @@ const HeaderLayout = styled.section`
   justify-content: center;
   border-bottom: 2px solid ${({ theme }) => theme.colors.gray200};
   margin: 0 -16rem;
-`;
-const Logo = styled.div`
-  ${({ theme }) => theme.fonts.logo};
-  color: ${({ theme }) => theme.colors.mainDark};
 `;

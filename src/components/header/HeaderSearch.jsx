@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import NavGuest from "./NavGuest";
 import NavUser from "./NavUser";
@@ -13,7 +14,7 @@ const HeaderSearch = () => {
   }, [cookie]);
   return (
     <HeaderLayout>
-      <Logo>STUDIOUS</Logo>
+      <Logo />
       <SearchBox />
       {isUser ? <NavUser /> : <NavGuest />}
     </HeaderLayout>
@@ -26,8 +27,4 @@ const HeaderLayout = styled.section`
   padding: 5rem 0;
   display: flex;
   justify-content: space-between;
-`;
-const Logo = styled.div`
-  ${({ theme }) => theme.fonts.logo};
-  color: ${({ theme }) => theme.colors.mainDark};
 `;

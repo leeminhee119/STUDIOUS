@@ -2,7 +2,7 @@ import axios from "axios";
 const baseURL =
   "http://ec2-54-180-201-100.ap-northeast-2.compute.amazonaws.com:8080";
 
-const request = async ({ url, method, body, params, token, failCallback }) => {
+const request = async ({ url, method, body, params, token }) => {
   try {
     const config = {
       baseURL,
@@ -27,17 +27,13 @@ const request = async ({ url, method, body, params, token, failCallback }) => {
       {};
     return data;
   } catch (error) {
-    if (failCallback) {
-      failCallback();
-    } else {
-      throw new Error(error.message);
-    }
+    throw error;
   }
 };
 
 export const GET = (url, token) => request({ url, method: "get", token });
-export const POST = (url, body, token, failCallback) =>
-  request({ url, method: "post", body, token, failCallback });
+export const POST = (url, body, token) =>
+  request({ url, method: "post", body, token });
 export const PATCH = (url, body, token) =>
   request({ url, method: "patch", body, token });
 export const PUT = (url, body, token) =>
