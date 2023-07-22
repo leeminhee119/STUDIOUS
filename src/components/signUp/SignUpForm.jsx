@@ -5,7 +5,7 @@ import { useSignUpMutation } from "hooks/queries/useSignup";
 const SignUpForm = ({ isOAuth, email, providerId, type }) => {
   const [signUpInfo, setSignUpInfo] = useState({
     email: email ? email : "",
-    password: "",
+    password: null,
     nickname: "",
     providerId: providerId ? providerId : null,
     type: type ? type : null,
