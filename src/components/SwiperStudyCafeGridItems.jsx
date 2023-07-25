@@ -11,7 +11,6 @@ const SwiperStudyCafeGridItems = ({ items, title }) => {
       <Swiper
         slidesPerView={3.5}
         spaceBetween={10}
-        slidesPerColumnFill="row"
         grabCursor={true}
         autoplay={{ delay: 3000 }}
         navigation={true}

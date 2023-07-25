@@ -17,8 +17,8 @@ const StudyCafeGridItem = ({ item }) => {
         </ItemDetailsTitle>
         <ItemDetailsMeta>{item.distance}</ItemDetailsMeta>
         <ItemDetailsHashtags>
-          {item.hashtags.map((hashtag) => (
-            <div>#{hashtag}</div>
+          {item.hashtags.map((hashtag, hashtagIndex) => (
+            <div key={hashtagIndex}>#{hashtag}</div>
           ))}
         </ItemDetailsHashtags>
       </ItemDetails>
