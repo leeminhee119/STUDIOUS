@@ -12,12 +12,12 @@ const StudyCafeGridItem = ({ item }) => {
       </ItemImageBox>
       <ItemDetails>
         <ItemDetailsTitle>
-          {item.name}
+          {item.cafeName}
           <div>⭐️ {item.grade}</div>
         </ItemDetailsTitle>
         <ItemDetailsMeta>{item.distance}</ItemDetailsMeta>
         <ItemDetailsHashtags>
-          {item.hashtag.map((hashtag) => (
+          {item.hashtags.map((hashtag) => (
             <div>#{hashtag}</div>
           ))}
         </ItemDetailsHashtags>
