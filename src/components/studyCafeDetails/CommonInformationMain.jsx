@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ImagesGrid from "./ImagesGrid";
+import HashTagsRow from "./HashTagsRow";
 
 const CommonInformationMain = ({
   mainInfo: { name, photos, accumResCnt, distance, hashtags },
@@ -14,6 +15,7 @@ const CommonInformationMain = ({
         <div className="right-side-header__accumResCnt">{accumResCnt}</div>
       </InformationHeader>
       <ImagesGrid photos={photos} />
+      <HashTagsRow hashtags={hashtags} />
     </>
   );
 };
