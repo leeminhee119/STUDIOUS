@@ -11,6 +11,7 @@ import Main from "pages/Main";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
 import OAuthLogin from "pages/OAuthLogin";
+import StudyCafeDetails from "pages/StudyCafeDetails";
 
 function App() {
   const queryClient = new QueryClient();
@@ -37,6 +38,10 @@ function App() {
                 <Route
                   path="/oauth/google"
                   element={<OAuthLogin platform={"google"} />}
+                />
+                <Route
+                  path="/studyCafe/:studyCafeId"
+                  element={<StudyCafeDetails />}
                 />
               </Routes>
             </Layout>
