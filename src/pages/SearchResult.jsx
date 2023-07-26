@@ -26,7 +26,9 @@ const SearchResult = () => {
   const totalPages = Math.ceil(searchResult.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, searchResult.length);
-  const displayedItems = searchResult.slice(startIndex, endIndex);
+  const displayedItems = searchResult
+    ? searchResult.slice(startIndex, endIndex)
+    : [];
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -56,16 +58,6 @@ const SearchResult = () => {
         ))}
       </GridContainer>
 
-      {/* <PaginationContainer>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <PageButton
-            key={page}
-            onClick={() => handlePageChange(page)}
-            isActive={page === currentPage}>
-            {page}
-          </PageButton>
-        ))}
-      </PaginationContainer> */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

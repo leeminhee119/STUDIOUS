@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimeControler from "./TimeControler";
+import Calendar from "./Calendar";
 
 const SearchBar = ({ onSearch }) => {
   const [isInputMode, setIsInputMode] = useState(false);
@@ -16,36 +17,34 @@ const SearchBar = ({ onSearch }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const hourlySchedules = [
-    { startTime: "09:00", endTime: "10:00", available: true },
-    { startTime: "10:00", endTime: "11:00", available: true },
-    { startTime: "11:00", endTime: "12:00", available: true },
-    { startTime: "12:00", endTime: "13:00", available: true },
-    { startTime: "13:00", endTime: "14:00", available: true },
-    { startTime: "14:00", endTime: "15:00", available: true },
-    { startTime: "15:00", endTime: "16:00", available: true },
-    { startTime: "16:00", endTime: "17:00", available: true },
-    { startTime: "17:00", endTime: "18:00", available: true },
-    { startTime: "18:00", endTime: "19:00", available: true },
-    { startTime: "19:00", endTime: "20:00", available: true },
-    { startTime: "20:00", endTime: "21:00", available: true },
-    { startTime: "21:00", endTime: "22:00", available: true },
-    { startTime: "22:00", endTime: "23:00", available: true },
-    { startTime: "23:00", endTime: "24:00", available: true },
+    { starttime: "08:00", endtime: "09:00", selected: false },
+    { starttime: "09:00", endtime: "10:00", selected: false },
+    { starttime: "10:00", endtime: "11:00", selected: false },
+    { starttime: "11:00", endtime: "12:00", selected: false },
+    { starttime: "12:00", endtime: "13:00", selected: false },
+    { starttime: "13:00", endtime: "14:00", selected: false },
+    { starttime: "14:00", endtime: "15:00", selected: false },
+    { starttime: "15:00", endtime: "16:00", selected: false },
+    { starttime: "16:00", endtime: "17:00", selected: false },
+    { starttime: "17:00", endtime: "18:00", selected: false },
+    { starttime: "18:00", endtime: "19:00", selected: false },
+    { starttime: "19:00", endtime: "20:00", selected: false },
+    { starttime: "20:00", endtime: "21:00", selected: false },
+    { starttime: "21:00", endtime: "22:00", selected: false },
+    { starttime: "22:00", endtime: "23:00", selected: false },
+    { starttime: "23:00", endtime: "24:00", selected: false },
   ];
-  const scrollWidths = [100, 120, 80, 90]; // 각 인덱스에 해당하는 스크롤 영역의 너비 값
-  const scrollIndex = 1; // 데이터를 설정하세요
-  const [startTimeIndex, setStartTimeIndex] = useState(undefined);
-  const [endTimeIndex, setEndTimeIndex] = useState(undefined);
+
+  const [selectedStartTime, setSelectedStartTime] = useState(undefined);
+  const [selectedEndTime, setSelectedEndTime] = useState(undefined);
 
   const onSelectTimeBlock = (e, timeBlock, index) => {
     if (!timeBlock.disabled) {
-      if (startTimeIndex === undefined) {
-        // startTimeIndex가 아직 설정되지 않은 경우, 첫 번째 누른 시간 블록을 startTimeIndex로 설정합니다.
-        setStartTimeIndex(index);
-        setEndTimeIndex(undefined); // endTimeIndex를 초기화합니다.
+      if (selectedStartTime === undefined) {
+        setSelectedStartTime(index);
+        setSelectedEndTime(undefined);
       } else {
-        // startTimeIndex가 이미 설정된 경우, 두 번째 누른 시간 블록을 endTimeIndex로 설정합니다.
-        setEndTimeIndex(index);
+        setSelectedEndTime(index);
       }
     }
   };
@@ -62,7 +61,7 @@ const SearchBar = ({ onSearch }) => {
   const handleModalCalendar = () => {
     //날짜 및 시간 선택 버튼 클릭하면 모달 창 띄우고 닫기
     setIsCalendarOpen(!isCalendarOpen);
-    setIsDatePickerOpen(!isDatePickerOpen); // 달력 열림/닫힘 상태를 업데이트
+    setIsDatePickerOpen(!isDatePickerOpen);
   };
 
   const handleModalHeadcount = () => {
@@ -80,23 +79,37 @@ const SearchBar = ({ onSearch }) => {
     setCount(count + 1);
   };
 
-  const handleDateChange = (date) => {
+  const handleSelectDate = (date) => {
     setSelectedDate(date);
   };
 
   const handleSearch = () => {
-    // 검색 조건 설정
-    const searchOptions = {
-      keyword: inputValue, // 검색어 입력값
-      date: selectedDate.toISOString().slice(0, 10), // 선택한 날짜 (ISO 형식)
-      startTime: hourlySchedules[startTimeIndex]?.startTime || "", // 시작 시간
-      endTime: hourlySchedules[endTimeIndex]?.endTime || "", // 종료 시간
-      headCount: count, // 인원 수
-      sort: "평점-높은-순", // 기본 정렬 기준
-    };
+    const searchQuery = inputValue;
+    const selectedDateString = selectedDate.toLocaleDateString("ko-KR", {
+      month: "numeric",
+      day: "numeric",
+      weekday: "short",
+    });
+    const selectedTimeRange =
+      selectedStartTime !== undefined && selectedEndTime !== undefined
+        ? {
+            startTime: hourlySchedules[selectedStartTime].starttime,
+            endTime: hourlySchedules[selectedEndTime].endtime,
+          }
+        : {};
 
-    // 검색 결과 요청
-    onSearch(searchOptions);
+    onSearch({
+      keyword: searchQuery,
+      date: selectedDateString,
+      startTime: selectedTimeRange.startTime || "",
+      endTime: selectedTimeRange.endTime || "",
+      headCount: count,
+      sort: "GRADE_DESC",
+    });
+    console.log("검색어:", searchQuery);
+    console.log("선택한 날짜:", selectedDateString.startTime);
+    console.log("선택한 시간:", selectedTimeRange.endTime);
+    console.log("인원수:", count);
   };
 
   return (
@@ -122,25 +135,27 @@ const SearchBar = ({ onSearch }) => {
             <CalendarModal onClick={(e) => e.stopPropagation()}>
               {isDatePickerOpen && (
                 <>
-                  <DatePicker
-                    selected={selectedDate}
-                    onChange={handleDateChange}
-                    inline
-                  />
+                  <Calendar onSelectDate={handleSelectDate} />
                   <Divider />
-                  {selectedDate && (
-                    <SelectedDateText>
-                      {selectedDate.toDateString()}
-                    </SelectedDateText>
-                  )}
+                  <SelectedDateText>
+                    {selectedDate.toLocaleDateString("ko-KR", {
+                      month: "numeric",
+                      day: "numeric",
+                      weekday: "short",
+                    })}
+                    {selectedStartTime !== undefined &&
+                    selectedEndTime !== undefined ? (
+                      <>{` ${hourlySchedules[selectedStartTime].starttime} - ${hourlySchedules[selectedEndTime].endtime}`}</>
+                    ) : (
+                      ""
+                    )}
+                  </SelectedDateText>
                   <Divider />
                   <TimeControler
                     hourlySchedules={hourlySchedules}
-                    scrollWidths={scrollWidths}
-                    scrollIndex={scrollIndex}
                     onSelectTimeBlock={onSelectTimeBlock}
-                    startTimeIndex={startTimeIndex}
-                    endTimeIndex={endTimeIndex}
+                    selectedStartTime={selectedStartTime}
+                    selectedEndTime={selectedEndTime}
                   />
                 </>
               )}
@@ -174,7 +189,7 @@ const SearchBar = ({ onSearch }) => {
             인원 수
           </SearchBarButtonText>
         )}
-        <SearchBarButton onClick={onSearch}>
+        <SearchBarButton onClick={handleSearch}>
           <SearchIcon />
         </SearchBarButton>
       </SearchBarLayout>
