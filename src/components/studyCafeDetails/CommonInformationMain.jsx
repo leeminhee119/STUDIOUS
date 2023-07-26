@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const CommonInformationMain = ({
-  main: { name, photos, accumResCnt, distance, hashtags },
+  mainInfo: { name, photos, accumResCnt, distance, hashtags },
 }) => {
   return (
     <>

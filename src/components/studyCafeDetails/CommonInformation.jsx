@@ -102,7 +102,7 @@ const CommonInformation = () => {
   console.log("cafeData", cafeData);
   return (
     <CommonInformationLayout>
-      <CommonInformationMain main={cafeData} />
+      <CommonInformationMain mainInfo={cafeData} />
       <CommonInformationPlace placeInfo={DUMMY_DATA.cafe} />
     </CommonInformationLayout>
   );
