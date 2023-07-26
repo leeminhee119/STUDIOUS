@@ -8,7 +8,13 @@ const DUMMY_DATA = {
   cafe: {
     cafeId: "(카페 id)",
     name: "(카페 이름)",
-    photos: [DUMMY_IMG_URL],
+    photos: [
+      DUMMY_IMG_URL,
+      DUMMY_IMG_URL,
+      DUMMY_IMG_URL,
+      DUMMY_IMG_URL,
+      DUMMY_IMG_URL,
+    ],
     accumResCnt: "(누적 예약 횟수)",
     distance: "(역까지 거리)",
     hashtags: ["해시테그1", "해시테그2"],
