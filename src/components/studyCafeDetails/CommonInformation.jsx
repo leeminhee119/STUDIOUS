@@ -18,7 +18,8 @@ const DUMMY_DATA = {
     accumResCnt: "(누적 예약 횟수)",
     distance: "(역까지 거리)",
     hashtags: ["해시테그1", "해시테그2"],
-    introduction: "(공간 소개)",
+    introduction:
+      "랭스는 Language(s)에 s를 붙인 복수형의 줄임말로 언어 공부나 대화가 필요한 다양한 활동을 할 수 있는 공간으로 만들고자 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다.",
     conveniences: ["룸 편의시설 이름1", "룸 편의시설 이름2"],
     notification: "(공지 사항)", // 공지사항이 없는 경우 null
     refundPolicy: {
@@ -104,12 +105,12 @@ const DUMMY_DATA = {
   },
 };
 const CommonInformation = () => {
-  const cafeData = DUMMY_DATA.cafe;
+  const { cafe: cafeData } = DUMMY_DATA;
   console.log("cafeData", cafeData);
   return (
     <CommonInformationLayout>
       <CommonInformationMain mainInfo={cafeData} />
-      <CommonInformationPlace placeInfo={DUMMY_DATA.cafe} />
+      <CommonInformationPlace placeInfo={cafeData} />
     </CommonInformationLayout>
   );
 };

@@ -1,15 +1,29 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const CommonInformationPlace = ({
   placeInfo: { introduction, conveniences },
 }) => {
+  const FOLD_TEXT = "간략히";
+  const UNFOLD_TEXT = "더보기";
+  const [isUnfold, setIsUnfold] = useState(false);
+  const [toggleButtonText, setToggleButtonText] = useState(UNFOLD_TEXT);
+
+  const handleToggleFold = () => {
+    setIsUnfold(() => !isUnfold);
+    setToggleButtonText(() =>
+      toggleButtonText === UNFOLD_TEXT ? FOLD_TEXT : UNFOLD_TEXT
+    );
+  };
+
   return (
     <>
       <TitleBox>공간 소개</TitleBox>
       <PlaceIntroContainer>
-        <PlaceIntroTextBox>
+        <PlaceIntroTextBox isUnfold={isUnfold}>
           <div>
-            <p>{introduction}</p>
+            <span onClick={handleToggleFold}>{toggleButtonText}</span>
+            {introduction}
           </div>
         </PlaceIntroTextBox>
         <PlaceIntroIconsBox></PlaceIntroIconsBox>
@@ -36,26 +50,33 @@ const PlaceIntroTextBox = styled.div`
   padding: 3rem 4.3rem;
   border-right: 1px solid;
   ${({ theme }) => theme.fonts.body1};
-  div {
-    height: 100%;
-    position: relative;
-  }
-  p {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: unset;
-    text-overflow: ellipsis;
+  ${({ isUnfold }) =>
+    isUnfold
+      ? `
+      div {
+        display: block;
+        height: 100%;
+      }
+    `
+      : `
+      div {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        white-space: unset;
+        text-overflow: ellipsis;
+        height: 100%;
+      }
+    `}
 
-    &::before {
-      content: url("data:image/svg+xml,%3Csvg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.812 1L8.91514 9L1.01827 0.999999' stroke='%23101010'/%3E%3C/svg%3E%0A");
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      padding-left: 1.5rem;
-      background-color: #fff;
-    }
+  span {
+    float: right;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    shape-outside: inset(calc(100% - 24px) 0 0 0);
+    color: ${({ theme }) => theme.colors.main30};
   }
 `;
 
