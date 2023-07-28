@@ -1,19 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { ReactComponent as ToggleBottomIcon } from "assets/icons/toggleBottom.svg";
+import { ReactComponent as ToggleUpIcon } from "assets/icons/toggleUp.svg";
 
 const CommonInformationPlace = ({
   placeInfo: { introduction, conveniences },
 }) => {
-  const FOLD_TEXT = "간략히";
-  const UNFOLD_TEXT = "더보기";
   const [isUnfold, setIsUnfold] = useState(false);
-  const [toggleButtonText, setToggleButtonText] = useState(UNFOLD_TEXT);
 
   const handleToggleFold = () => {
     setIsUnfold(() => !isUnfold);
-    setToggleButtonText(() =>
-      toggleButtonText === UNFOLD_TEXT ? FOLD_TEXT : UNFOLD_TEXT
-    );
   };
 
   return (
@@ -22,7 +18,13 @@ const CommonInformationPlace = ({
       <PlaceIntroContainer>
         <PlaceIntroTextBox isUnfold={isUnfold}>
           <div>
-            <span onClick={handleToggleFold}>{toggleButtonText}</span>
+            <button>
+              {isUnfold ? (
+                <ToggleUpIcon onClick={handleToggleFold} />
+              ) : (
+                <ToggleBottomIcon onClick={handleToggleFold} />
+              )}
+            </button>
             {introduction}
           </div>
         </PlaceIntroTextBox>
@@ -70,11 +72,12 @@ const PlaceIntroTextBox = styled.div`
       }
     `}
 
-  span {
+  button {
     float: right;
     display: flex;
     align-items: flex-end;
     height: 100%;
+    padding-bottom: 5px;
     shape-outside: inset(calc(100% - 24px) 0 0 0);
     color: ${({ theme }) => theme.colors.main30};
   }
