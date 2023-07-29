@@ -14,8 +14,7 @@ const SwiperStudyCafeGridItems = ({ items, title }) => {
         grabCursor={true}
         autoplay={{ delay: 3000 }}
         navigation={true}
-        modules={[Navigation]}
-      >
+        modules={[Navigation]}>
         {items.map((item, itemIndex) => (
           <SwiperSlide key={itemIndex}>
             <StudyCafeGridItem item={item} />
