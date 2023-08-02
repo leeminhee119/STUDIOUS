@@ -12,6 +12,8 @@ import Login from "pages/Login";
 import SignUp from "pages/SignUp";
 import OAuthLogin from "pages/OAuthLogin";
 import StudyCafeDetails from "pages/StudyCafeDetails";
+import Search from "pages/Search";
+import SearchResult from "pages/SearchResult";
 
 function App() {
   const queryClient = new QueryClient();
@@ -43,6 +45,8 @@ function App() {
                   path="/studyCafe/:studyCafeId"
                   element={<StudyCafeDetails />}
                 />
+                <Route path="/search" element={<Search />} />
+                <Route path="/search-result" element={<SearchResult />} />
               </Routes>
             </Layout>
           </ThemeProvider>

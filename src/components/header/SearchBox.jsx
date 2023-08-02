@@ -1,10 +1,22 @@
 import styled from "styled-components";
 import { ReactComponent as SearchIcon } from "assets/icons/search.svg";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const SearchBox = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSearchClick = () => {
+    navigate("/search");
+  };
+
+  if (location.pathname === "/search") {
+    return null;
+  }
+
   return (
     <SearchBoxLayout>
-      <SearchBoxInput placeholder="스터디룸 검색" />
+      <SearchBoxInput placeholder="스터디룸 검색" onClick={handleSearchClick} />
       <SearchBoxButton>
         <SearchIcon />
       </SearchBoxButton>
@@ -44,4 +56,3 @@ const SearchBoxButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
-// const SearchIcon = styled.img``;
