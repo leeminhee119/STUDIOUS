@@ -24,7 +24,6 @@ const NavBarContainer = styled.nav`
   display: flex;
   width: 100%;
   height: 5rem;
-  border: 1px solid;
 `;
 
 const NavBarItem = styled.div`
