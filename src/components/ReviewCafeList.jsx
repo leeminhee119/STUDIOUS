@@ -31,6 +31,7 @@ export default ReviewCafeList;
 
 const ReviewContainer = styled.div`
   margin-top: 3rem;
+  margin-left: 6rem;
   padding: 3rem;
 `;
 
