@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { ReactComponent as SearchIcon } from "assets/icons/search100.svg";
 import { ReactComponent as MinusIcon } from "assets/icons/minus.svg";
 import { ReactComponent as PlusIcon } from "assets/icons/plus.svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimeControler from "./TimeControler";
 import Calendar from "./Calendar";
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onClose }) => {
+  const navigate = useNavigate();
   const [isInputMode, setIsInputMode] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -34,6 +37,7 @@ const SearchBar = ({ onSearch }) => {
     { starttime: "22:00", endtime: "23:00", selected: false },
     { starttime: "23:00", endtime: "24:00", selected: false },
   ];
+  const [searchResult, setSearchResult] = useState([]);
 
   const [selectedStartTime, setSelectedStartTime] = useState(undefined);
   const [selectedEndTime, setSelectedEndTime] = useState(undefined);
@@ -83,34 +87,157 @@ const SearchBar = ({ onSearch }) => {
     setSelectedDate(date);
   };
 
-  const handleSearch = () => {
+  const formatTime = (time) => {
+    const hours = String(time.getHours()).padStart(2, "0");
+    const minutes = String(time.getMinutes()).padStart(2, "0");
+    const seconds = String(time.getSeconds()).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+  };
+
+  const handleSearch = async ({
+    page,
+    keyword,
+    date,
+    startTime,
+    endTime,
+    headCount,
+    sortType,
+    minGrade,
+    maxGrade,
+    eventInProgress,
+    hashtags,
+    conveniences,
+  }) => {
+    //     const url = `http://localhost:8080/studious/search?page=1&keyword=${keyword}&date=${date}&startTime=${startTime}&endTime=${endTime}&headCount=${headCount}&sort=${sort}`;
+
+    //     try {
+    //       const response = await axios.get(url);
+
+    //       if (response.status === 200) {
+    //         const responseData = response.data;
+    //         setSearchResult(responseData);
+
+    //         // 검색 결과를 SearchResult 페이지로 전달하고 페이지 이동
+    //         navigate("/search-result", { state: { searchResult: responseData } });
+    //       }
+    //     } catch (error) {
+    //       console.error("Error data:", error);
+    //     }
+    //   };
+    console.log(keyword, date, startTime, endTime, headCount, sortType);
+    setSearchResult([
+      {
+        name: "스터디카페1",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페2",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 12,
+        distance: "700m",
+        grade: 3.8,
+        hashtags: ["편안한", "음료 다양", "서비스 좋음"],
+      },
+      {
+        name: "스터디카페3",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페4",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페5",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페6",
+        photo: "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페7",
+        photo: "https://example.com/cafe1.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페8",
+        photo: "https://example.com/cafe1.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+      {
+        name: "스터디카페9",
+        photo: "https://example.com/cafe1.jpg",
+        accumRevCnt: 20,
+        distance: "500m",
+        grade: 4.5,
+        hashtags: ["조용한", "와이파이 빠름", "좌석 넓음"],
+      },
+    ]);
+    navigate("/search-result", { state: { searchResult: searchResult } });
+  };
+
+  const handleSearchButtonClick = async () => {
     const searchQuery = inputValue;
-    const selectedDateString = selectedDate.toLocaleDateString("ko-KR", {
-      month: "numeric",
-      day: "numeric",
-      weekday: "short",
-    });
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(selectedDate.getDate()).padStart(2, "0");
+    const selectedDateFormatted = `${year}-${month}-${day}`;
     const selectedTimeRange =
       selectedStartTime !== undefined && selectedEndTime !== undefined
         ? {
-            startTime: hourlySchedules[selectedStartTime].starttime,
-            endTime: hourlySchedules[selectedEndTime].endtime,
+            startTime: formatTime(
+              new Date(
+                `2023-07-20T${hourlySchedules[selectedStartTime].starttime}`
+              )
+            ),
+            endTime: formatTime(
+              new Date(`2023-07-20T${hourlySchedules[selectedEndTime].endtime}`)
+            ),
           }
         : {};
 
-    onSearch({
+    await handleSearch({
       keyword: searchQuery,
-      date: selectedDateString,
+      date: selectedDateFormatted,
       startTime: selectedTimeRange.startTime || "",
       endTime: selectedTimeRange.endTime || "",
       headCount: count,
-      sort: "GRADE_DESC",
+      sortType: "GRADE_DESC",
     });
-    console.log("검색어:", searchQuery);
-    console.log("선택한 날짜:", selectedDateString.startTime);
-    console.log("선택한 시간:", selectedTimeRange.endTime);
-    console.log("인원수:", count);
+    onClose();
   };
+
+  useEffect(() => {
+    if (searchResult.length > 0) {
+      navigate("/search-result", { state: { searchResult: searchResult } });
+    }
+  }, [searchResult]);
 
   return (
     <SearchBarWrapper>
@@ -189,7 +316,7 @@ const SearchBar = ({ onSearch }) => {
             인원 수
           </SearchBarButtonText>
         )}
-        <SearchBarButton onClick={handleSearch}>
+        <SearchBarButton onClick={handleSearchButtonClick}>
           <SearchIcon />
         </SearchBarButton>
       </SearchBarLayout>
@@ -259,7 +386,7 @@ const CalendarModal = styled.div`
   height: 50rem;
   background-color: #ffffff;
   border-radius: 2rem;
-  z-index: 2;
+  z-index: 4;
 `;
 const CountModal = styled.div`
   position: fixed;
@@ -271,7 +398,7 @@ const CountModal = styled.div`
   height: 15rem;
   background-color: #ffffff;
   border-radius: 2rem;
-  z-index: 2;
+  z-index: 4;
   &:hover {
     cursor: auto;
   }
