@@ -3,8 +3,9 @@ import { useState } from "react";
 import TabContainer from "../TabContainer";
 import Calendar from "components/Search/Calendar";
 import { ReactComponent as CalendarIcon } from "assets/icons/calendar.svg";
+import StudyRoomItem from "./StudyRoomItem";
 
-const StudyRoomReservation = () => {
+const StudyRoomReservation = ({ roomsData }) => {
   const [isShowCalendar, setIsShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toLocaleDateString()
@@ -12,14 +13,19 @@ const StudyRoomReservation = () => {
   return (
     <>
       <TabContainer title={"스터디룸 예약"}>
-        <SelectDateBox>
-          <span>예약일자</span>
-          <div onClick={() => setIsShowCalendar(() => !isShowCalendar)}>
-            <span>{selectedDate}</span>
-            <CalendarIcon />
-          </div>
-        </SelectDateBox>
-        {isShowCalendar && <Calendar onSelectDate={() => {}} />}
+        <StudyRoomTabLayout>
+          <SelectDateBox>
+            <span>예약일자</span>
+            <div onClick={() => setIsShowCalendar(() => !isShowCalendar)}>
+              <span>{selectedDate}</span>
+              <CalendarIcon />
+            </div>
+          </SelectDateBox>
+          {isShowCalendar && <Calendar onSelectDate={() => {}} />}
+          {roomsData.map((roomData, roomIndex) => {
+            return <StudyRoomItem roomData={roomData} key={roomIndex} />;
+          })}
+        </StudyRoomTabLayout>
       </TabContainer>
     </>
   );
@@ -27,6 +33,11 @@ const StudyRoomReservation = () => {
 
 export default StudyRoomReservation;
 
+const StudyRoomTabLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+`;
 const SelectDateBox = styled.div`
   ${({ theme }) => theme.fonts.heading2}
   display: flex;

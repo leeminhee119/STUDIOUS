@@ -42,7 +42,13 @@ const StudyCafeDetails = () => {
       {
         id: 1,
         name: "A룸",
-        photos: [],
+        photos: [
+          DUMMY_IMG_URL,
+          DUMMY_IMG_URL,
+          DUMMY_IMG_URL,
+          DUMMY_IMG_URL,
+          DUMMY_IMG_URL,
+        ],
         canReserveDatetime: {
           // 해당 날짜 : (이용 가능 시간대)
           // ex. 이용 가능 시간이 10시 ~ 11시 => 10
@@ -58,7 +64,7 @@ const StudyCafeDetails = () => {
       {
         id: 2,
         name: "B룸",
-        photos: ["uri1", "uri2"],
+        photos: [DUMMY_IMG_URL, DUMMY_IMG_URL],
         canReserveDatetime: {
           // 해당 날짜 : 이용 가능 시간대 리스트
           // ex. 이용 가능 시간이 10시 ~ 11시 => 10
@@ -109,7 +115,7 @@ const StudyCafeDetails = () => {
   const NAVBAR_CONTENTS = [
     {
       name: "스터디룸 예약",
-      component: <StudyRoomReservation />,
+      component: <StudyRoomReservation roomsData={DUMMY_DATA.rooms} />,
     },
     {
       name: "리뷰",
