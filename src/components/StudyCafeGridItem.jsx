@@ -1,17 +1,22 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // 서버에서 가져온 데이터에 이미지가 없는 경우 사용할 대체 이미지입니다.
 const IMG_DUMMY_URL =
   "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg";
 
 const StudyCafeGridItem = ({ item }) => {
+  const navigate = useNavigate();
+  const handleClickItem = () => {
+    navigate(`/studyCafe/${item.cafeId}`);
+  };
   return (
     <ItemLayout>
-      <ItemImageBox>
+      <ItemImageBox onClick={handleClickItem}>
         <img src={item.photo ?? IMG_DUMMY_URL} alt="스터디카페 이미지" />
       </ItemImageBox>
       <ItemDetails>
-        <ItemDetailsTitle>
+        <ItemDetailsTitle onClick={handleClickItem}>
           {item.cafeName}
           <div>⭐️ {item.grade}</div>
         </ItemDetailsTitle>
