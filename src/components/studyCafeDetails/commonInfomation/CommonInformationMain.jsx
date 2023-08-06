@@ -6,7 +6,6 @@ import { detailsCommonState } from "recoil/atoms/detailsCommonState";
 
 const CommonInformationMain = () => {
   const commonDetails = useRecoilValue(detailsCommonState);
-  console.log("commonDetails", commonDetails);
   const {
     cafeName,
     cafePhotos,
