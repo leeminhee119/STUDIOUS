@@ -2,10 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as ToggleBottomIcon } from "assets/icons/toggleBottom.svg";
 import { ReactComponent as ToggleUpIcon } from "assets/icons/toggleUp.svg";
+import { useRecoilValue } from "recoil";
+import { detailsCommonState } from "recoil/atoms/detailsCommonState";
 
-const CommonInformationPlace = ({
-  placeInfo: { introduction, conveniences },
-}) => {
+const CommonInformationPlace = () => {
+  const commonDetails = useRecoilValue(detailsCommonState);
+  const { introduction, conveniences } = commonDetails;
   const [isUnfold, setIsUnfold] = useState(false);
 
   const handleToggleFold = () => {

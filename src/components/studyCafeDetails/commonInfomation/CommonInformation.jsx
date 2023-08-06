@@ -2,11 +2,11 @@ import styled from "styled-components";
 import CommonInformationMain from "./CommonInformationMain";
 import CommonInformationPlace from "./CommonInformationPlace";
 
-const CommonInformation = ({ cafeData }) => {
+const CommonInformation = () => {
   return (
     <CommonInformationLayout>
-      <CommonInformationMain mainInfo={cafeData} />
-      <CommonInformationPlace placeInfo={cafeData} />
+      <CommonInformationMain />
+      <CommonInformationPlace />
     </CommonInformationLayout>
   );
 };

@@ -14,7 +14,16 @@ const StudyRoomItem = ({
         </SmallImagesSlider>
       </ItemLeftSection>
       <ItemRightSection>
-        <StudyCafeNameBox>{name}</StudyCafeNameBox>
+        <StudyCafeTopMainInfoBox>
+          <div className="info">
+            {name}
+            <div className="info__sub">최소 3인 ~ 최대 6인</div>
+          </div>
+          <div className="info">
+            <div>2,500원</div>
+            <div className="info__sub">/ 시간</div>
+          </div>
+        </StudyCafeTopMainInfoBox>
       </ItemRightSection>
     </ItemContainer>
   );
@@ -63,8 +72,23 @@ const SmallImagesSlider = styled.div`
   }
 `;
 
-const ItemRightSection = styled.section``;
+const ItemRightSection = styled.section`
+  width: 50%;
+`;
 
-const StudyCafeNameBox = styled.div`
+const StudyCafeTopMainInfoBox = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   ${({ theme }) => theme.fonts.heading1Bold};
+  line-height: 3rem;
+  div.info {
+    display: flex;
+    align-items: flex-end;
+    &__sub {
+      margin-left: 1rem;
+      ${({ theme }) => theme.fonts.body2};
+      color: ${({ theme }) => theme.colors.gray500};
+    }
+  }
 `;

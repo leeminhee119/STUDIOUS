@@ -1,20 +1,32 @@
 import styled from "styled-components";
 import ImagesGrid from "./ImagesGrid";
 import HashTagsRow from "./HashTagsRow";
+import { useRecoilValue } from "recoil";
+import { detailsCommonState } from "recoil/atoms/detailsCommonState";
 
-const CommonInformationMain = ({
-  mainInfo: { name, photos, accumResCnt, distance, hashtags },
-}) => {
+const CommonInformationMain = () => {
+  const commonDetails = useRecoilValue(detailsCommonState);
+  console.log("commonDetails", commonDetails);
+  const {
+    cafeName,
+    cafePhotos,
+    accumResCnt,
+    nearestStation,
+    distance,
+    hashtags,
+  } = commonDetails;
   return (
     <>
       <InformationHeader>
         <div className="left-side-header">
-          <div className="left-side-header__title">{name}</div>
-          <div className="left-side-header__distance">{distance}</div>
+          <div className="left-side-header__title">{cafeName}</div>
+          <div className="left-side-header__distance">
+            {nearestStation + distance + "분"}
+          </div>
         </div>
         <div className="right-side-header__accumResCnt">{accumResCnt}</div>
       </InformationHeader>
-      <ImagesGrid photos={photos} />
+      <ImagesGrid photos={cafePhotos} />
       <HashTagsRow hashtags={hashtags} />
     </>
   );
