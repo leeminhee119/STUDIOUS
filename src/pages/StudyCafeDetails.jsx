@@ -274,7 +274,7 @@ const StudyCafeDetails = () => {
   }, []);
   return (
     <>
-      {/* <CommonInformation /> */}
+      <CommonInformation />
       <NavBar
         navBarItems={NAVBAR_CONTENTS.map((content) => content.name)}
         onClickMenu={(idx) => setActiveIndex(idx)}

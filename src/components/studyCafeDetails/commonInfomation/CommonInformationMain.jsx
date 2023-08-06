@@ -21,10 +21,12 @@ const CommonInformationMain = () => {
         <div className="left-side-header">
           <div className="left-side-header__title">{cafeName}</div>
           <div className="left-side-header__distance">
-            {nearestStation + distance + "분"}
+            {`${nearestStation} ${distance}분`}
           </div>
         </div>
-        <div className="right-side-header__accumResCnt">{accumResCnt}</div>
+        <div className="right-side-header__accumResCnt">
+          예약 {accumResCnt}회
+        </div>
       </InformationHeader>
       <ImagesGrid photos={cafePhotos} />
       <HashTagsRow hashtags={hashtags} />
