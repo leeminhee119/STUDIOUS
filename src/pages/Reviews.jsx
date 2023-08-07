@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import ReviewCafeList from "components/ReviewCafeList";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [writableReviews, setWritableReviews] = useState([]);
@@ -100,6 +101,8 @@ const Reviews = () => {
     },
   ];
 
+  const navigate = useNavigate();
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setWritableReviews(DUMMY_DATA1);
@@ -108,10 +111,12 @@ const Reviews = () => {
 
   const handleWriteReview = (review) => {
     console.log("리뷰 작성 페이지로 이동:", review);
+    navigate("/write-review", { state: { review } });
   };
 
   const handleUpdateReview = (review) => {
     console.log("리뷰 수정 페이지로 이동:", review);
+    navigate(`/edit-review/${review.id}`, { state: { review } });
   };
 
   const handleDeleteReview = (review) => {
