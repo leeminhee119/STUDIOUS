@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
 const conveniencesData = [
   { id: "PARKING", label: "주차" },
@@ -88,28 +87,6 @@ const FilterModal = ({ onClose, applyFilters }) => {
     applyFilters({ minGrade, eventInProgress, hashtags, conveniences });
     onClose();
   };
-
-  // const applyFilters = () => {
-  //   const filters = {
-  //     minGrade: minGrade,
-  //     eventInProgress: eventInProgress,
-  //     hashtags: hashtags,
-  //     conveniences: conveniences,
-  //   };
-
-  //   const queryParams = new URLSearchParams(filters).toString();
-  //   const requestURL = `http://localhost:8080/studious/search?${queryParams}`;
-
-  //   axios
-  //     .get(requestURL)
-  //     .then((response) => {
-  //       console.log("Server response:", response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(requestURL);
-  //       console.error("Error:", error);
-  //     });
-  // };
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
