@@ -50,7 +50,7 @@ const minGradeData = [
   { id: "5", label: "5점" },
 ];
 
-const FilterModal = ({ onClose }) => {
+const FilterModal = ({ onClose, applyFilters }) => {
   const modalRef = useRef();
 
   const [conveniences, setConveniences] = useState([]);
@@ -84,34 +84,32 @@ const FilterModal = ({ onClose }) => {
     }
   };
 
-  const applyFilters = () => {
-    const filters = {
-      // pageNumber: currentPageNumber,
-      // keyword: userEnteredKeyword,
-      // date: userSelectedDate,
-      // startTime: userSelectedStartTime,
-      // endTime: userSelectedEndTime,
-      // numberOfPeople: userSelectedNumberOfPeople,
-      // sorting: userSelectedSorting,
-      // minGrade: minGrade,
-      // eventInProgress: eventInProgress,
-      // hashtags: hashtags,
-      // conveniences: conveniences,
-    };
-
-    const queryParams = new URLSearchParams(filters).toString();
-    const requestURL = `http://localhost:8080/studious/search?${queryParams}`;
-
-    axios
-      .get(requestURL)
-      .then((response) => {
-        console.log("Server response:", response.data);
-      })
-      .catch((error) => {
-        console.log(requestURL);
-        console.error("Error:", error);
-      });
+  const handleApplyClick = () => {
+    applyFilters({ minGrade, eventInProgress, hashtags, conveniences });
+    onClose();
   };
+
+  // const applyFilters = () => {
+  //   const filters = {
+  //     minGrade: minGrade,
+  //     eventInProgress: eventInProgress,
+  //     hashtags: hashtags,
+  //     conveniences: conveniences,
+  //   };
+
+  //   const queryParams = new URLSearchParams(filters).toString();
+  //   const requestURL = `http://localhost:8080/studious/search?${queryParams}`;
+
+  //   axios
+  //     .get(requestURL)
+  //     .then((response) => {
+  //       console.log("Server response:", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(requestURL);
+  //       console.error("Error:", error);
+  //     });
+  // };
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -126,6 +124,7 @@ const FilterModal = ({ onClose }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose]);
+
   return (
     <ModalOverlay>
       <ModalContent ref={modalRef}>
@@ -181,14 +180,14 @@ const FilterModal = ({ onClose }) => {
                 key={grade.id}
                 onClick={() => handleGradeChange(Number(grade.id))}
                 isActive={minGrade === Number(grade.id)}>
-                {"★ "}
+                {"⭐️ "}
                 {grade.label}
               </GradeButton>
             ))}
           </GradeButtonsContainer>
         </FilterSection>
         <ButtonContainer>
-          <ApplyButton onClick={applyFilters}>적용</ApplyButton>
+          <ApplyButton onClick={handleApplyClick}>적용</ApplyButton>
           <CancelButton onClick={onClose}>취소</CancelButton>
         </ButtonContainer>
       </ModalContent>

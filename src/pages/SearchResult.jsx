@@ -118,6 +118,31 @@ const SearchResult = () => {
     setCurrentPage(newPage);
   };
 
+  const handleApplyFilters = async (filterData) => {
+    const { minGrade, eventInProgress, hashtags, conveniences } = filterData;
+    const url = `http://localhost:8080/studious/search?page=${currentPage}&keyword=${
+      searchBarData.keyword
+    }&date=${searchBarData.date}&startTime=${searchBarData.startTime}&endTime=${
+      searchBarData.endTime
+    }&headCount=${
+      searchBarData.headCount
+    }&sortType=${sortOption}&minGrade=${minGrade}&eventInProgress=${eventInProgress}&hashtags=${hashtags.join(
+      ","
+    )}&conveniences=${conveniences.join(",")}`;
+
+    try {
+      const response = await axios.get(url);
+
+      if (response.status === 200) {
+        const responseData = response.data;
+        setSearchResult(responseData);
+      }
+    } catch (error) {
+      console.error("Error data:", error);
+      console.log(url);
+    }
+  };
+
   useEffect(() => {
     async function axiosSearchResults() {
       const url = `http://localhost:8080/studious/search?page=${currentPage}&keyword=${searchBarData.keyword}&date=${searchBarData.date}&startTime=${searchBarData.startTime}&endTime=${searchBarData.endTime}&headCount=${searchBarData.headCount}&sortType=${sortOption}`;
@@ -143,7 +168,7 @@ const SearchResult = () => {
           <option value="REVIEW_DESC">리뷰 많은 순</option>
           <option value="RESERVATION_DESC">예약 많은 순</option>
           <option value="GRADE_DESC">평점 높은 순</option>
-          <option value="GRADE_ASC">최신순</option>
+          <option value="CREATED_DESC">최신순</option>
         </SortSelect>
 
         <FilterButton onClick={handleFilterButtonClick}>
@@ -151,7 +176,12 @@ const SearchResult = () => {
         </FilterButton>
       </FilterSortContainer>
 
-      {isModalOpen && <FilterModal onClose={handleFilterButtonClick} />}
+      {isModalOpen && (
+        <FilterModal
+          onClose={handleFilterButtonClick}
+          applyFilters={handleApplyFilters}
+        />
+      )}
 
       <GridContainer>
         {displayedItems.map((item) => (
