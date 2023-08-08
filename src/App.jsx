@@ -11,7 +11,6 @@ import Main from "pages/Main";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
 import OAuthLogin from "pages/OAuthLogin";
-import Search from "pages/Search";
 import SearchResult from "pages/SearchResult";
 import Reviews from "pages/Reviews";
 
@@ -41,7 +40,6 @@ function App() {
                   path="/oauth/google"
                   element={<OAuthLogin platform={"google"} />}
                 />
-                <Route path="/search" element={<Search />} />
                 <Route path="/search-result" element={<SearchResult />} />
                 <Route path="/reviews" element={<Reviews />} />
               </Routes>
