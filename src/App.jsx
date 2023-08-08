@@ -11,6 +11,7 @@ import Main from "pages/Main";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
 import OAuthLogin from "pages/OAuthLogin";
+import StudyCafeDetails from "pages/StudyCafeDetails";
 import SearchResult from "pages/SearchResult";
 import Reviews from "pages/Reviews";
 
@@ -39,6 +40,10 @@ function App() {
                 <Route
                   path="/oauth/google"
                   element={<OAuthLogin platform={"google"} />}
+                />
+                <Route
+                  path="/studyCafe/:studyCafeId"
+                  element={<StudyCafeDetails />}
                 />
                 <Route path="/search-result" element={<SearchResult />} />
                 <Route path="/reviews" element={<Reviews />} />
