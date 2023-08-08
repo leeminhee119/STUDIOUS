@@ -54,7 +54,7 @@ const SearchResult = () => {
 
       <GridContainer>
         {displayedItems.map((item, index) => (
-          <StyledStudyCafeGridItem key={item.id} item={item} index={index} />
+          <StudyCafeGridItem key={item.id} item={item} index={index} />
         ))}
       </GridContainer>
 
@@ -100,7 +100,5 @@ const FilterButton = styled.button`
   height: 4rem;
   border-radius: 50%;
 `;
-
-const StyledStudyCafeGridItem = styled(StudyCafeGridItem)``;
 
 export default SearchResult;

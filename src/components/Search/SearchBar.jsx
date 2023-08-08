@@ -5,7 +5,6 @@ import { ReactComponent as SearchIcon } from "assets/icons/search100.svg";
 import { ReactComponent as MinusIcon } from "assets/icons/minus.svg";
 import { ReactComponent as PlusIcon } from "assets/icons/plus.svg";
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimeControler from "./TimeControler";
 import Calendar from "./Calendar";
@@ -108,23 +107,21 @@ const SearchBar = ({ onClose }) => {
     hashtags,
     conveniences,
   }) => {
-    //     const url = `http://localhost:8080/studious/search?page=1&keyword=${keyword}&date=${date}&startTime=${startTime}&endTime=${endTime}&headCount=${headCount}&sort=${sort}`;
+    const url = `http://localhost:8080/studious/search?page=1&keyword=${keyword}&date=${date}&startTime=${startTime}&endTime=${endTime}&headCount=${headCount}&sortType=${sortType}`;
 
-    //     try {
-    //       const response = await axios.get(url);
+    try {
+      const response = await axios.get(url);
 
-    //       if (response.status === 200) {
-    //         const responseData = response.data;
-    //         setSearchResult(responseData);
+      if (response.status === 200) {
+        const responseData = response.data;
+        setSearchResult(responseData);
 
-    //         // 검색 결과를 SearchResult 페이지로 전달하고 페이지 이동
-    //         navigate("/search-result", { state: { searchResult: responseData } });
-    //       }
-    //     } catch (error) {
-    //       console.error("Error data:", error);
-    //     }
-    //   };
-    console.log(keyword, date, startTime, endTime, headCount, sortType);
+        // 검색 결과를 SearchResult 페이지로 전달하고 페이지 이동
+        navigate("/search-result", { state: { searchResult: responseData } });
+      }
+    } catch (error) {
+      console.error("Error data:", error);
+    }
     setSearchResult([
       {
         name: "스터디카페1",

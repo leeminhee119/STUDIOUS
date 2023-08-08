@@ -10,28 +10,26 @@ const SearchBox = () => {
     setIsSearchBarOpen(!isSearchBarOpen);
   };
 
-  const handleModalClick = (e) => {
-    e.stopPropagation();
+  const handleOverlayClick = (e) => {
+    setIsSearchBarOpen(false);
   };
 
   return (
     <div>
-      {!isSearchBarOpen && (
+      {!isSearchBarOpen ? (
         <SearchBoxLayout onClick={handleSearchClick}>
           <SearchBoxInput placeholder="스터디룸 검색" />
           <SearchBoxButton>
             <SearchIcon />
           </SearchBoxButton>
         </SearchBoxLayout>
-      )}
-      {isSearchBarOpen && (
+      ) : (
         <ModalContainer>
-          <SearchBarModal onClick={handleModalClick}>
-            <SearchBar onClose={() => setIsSearchBarOpen(false)} />
-          </SearchBarModal>
+          <SearchBar onClose={handleOverlayClick} />
         </ModalContainer>
       )}
-      {isSearchBarOpen && <Overlay onClick={handleSearchClick} />}
+
+      {isSearchBarOpen && <Overlay onClick={handleOverlayClick} />}
     </div>
   );
 };
@@ -72,10 +70,10 @@ const SearchBoxButton = styled.button`
 
 const ModalContainer = styled.div`
   position: fixed;
-  top: 5rem;
+  top: 3rem;
   left: 0;
   width: 100%;
-  height: 25rem;
+  height: 24rem;
   z-index: 2;
   display: flex;
   justify-content: center;
@@ -84,18 +82,9 @@ const ModalContainer = styled.div`
   padding-top: 30px;
 `;
 
-const SearchBarModal = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 20px;
-  z-index: 3;
-`;
-
 const Overlay = styled.div`
   position: fixed;
-  top: 30rem;
+  top: 20rem;
   left: 0;
   width: 100%;
   height: calc(100% - 5rem);
