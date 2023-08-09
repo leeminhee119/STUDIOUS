@@ -20,7 +20,7 @@ const CommonInformationMain = () => {
         <div className="left-side-header">
           <div className="left-side-header__title">{cafeName}</div>
           <div className="left-side-header__distance">
-            {`${nearestStation} ${distance}분`}
+            {`${nearestStation} 도보 ${distance}분`}
           </div>
         </div>
         <div className="right-side-header__accumResCnt">
