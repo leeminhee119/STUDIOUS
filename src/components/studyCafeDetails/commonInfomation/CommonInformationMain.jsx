@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ImagesGrid from "./ImagesGrid";
 import HashTagsRow from "./HashTagsRow";
 import { useRecoilValue } from "recoil";
-import { detailsCommonSelector } from "recoil/selectors/detailsCommonSelector";
+import { detailsCommonSelector } from "recoil/selectors/studyCafeDetails";
 
 const CommonInformationMain = () => {
   const commonDetails = useRecoilValue(detailsCommonSelector);

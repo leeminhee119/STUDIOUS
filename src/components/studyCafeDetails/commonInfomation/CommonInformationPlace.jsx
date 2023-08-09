@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as ToggleBottomIcon } from "assets/icons/toggleBottom.svg";
 import { ReactComponent as ToggleUpIcon } from "assets/icons/toggleUp.svg";
 import { useRecoilValue } from "recoil";
-import { detailsCommonSelector } from "recoil/selectors/detailsCommonSelector";
+import { detailsCommonSelector } from "recoil/selectors/studyCafeDetails";
 
 const CommonInformationPlace = () => {
   const commonDetails = useRecoilValue(detailsCommonSelector);
