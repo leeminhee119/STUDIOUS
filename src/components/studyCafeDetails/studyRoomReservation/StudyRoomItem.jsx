@@ -1,7 +1,18 @@
 import styled from "styled-components";
+import { formatNumberWithCommas } from "utils/formatNumber";
 
 const StudyRoomItem = ({
-  roomData: { id, name, conveniences, canReserveDatetime, photos },
+  roomData: {
+    id,
+    name,
+    minCount,
+    maxCount,
+    price,
+    type,
+    conveniences,
+    canReserveDatetime,
+    photos,
+  },
 }) => {
   return (
     <ItemContainer>
@@ -17,11 +28,13 @@ const StudyRoomItem = ({
         <StudyCafeTopMainInfoBox>
           <div className="info">
             {name}
-            <div className="info__sub">최소 3인 ~ 최대 6인</div>
+            <div className="info__sub">{`최소 ${minCount}인 ~ 최대 ${maxCount}인`}</div>
           </div>
           <div className="info">
-            <div>2,500원</div>
-            <div className="info__sub">/ 시간</div>
+            <div>{`${formatNumberWithCommas(price)}원`}</div>
+            <div className="info__sub">
+              {type === "PER_HOUR" ? "/ 시간" : "/ 인"}
+            </div>
           </div>
         </StudyCafeTopMainInfoBox>
       </ItemRightSection>

@@ -225,7 +225,7 @@ const StudyCafeDetails = () => {
   const NAVBAR_CONTENTS = [
     {
       name: "스터디룸 예약",
-      component: <StudyRoomReservation roomsData={DUMMY_DATA_2.rooms} />,
+      component: <StudyRoomReservation />,
     },
     {
       name: "리뷰",

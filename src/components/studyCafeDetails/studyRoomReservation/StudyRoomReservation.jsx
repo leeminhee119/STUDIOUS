@@ -4,8 +4,11 @@ import TabContainer from "../TabContainer";
 import Calendar from "components/Search/Calendar";
 import { ReactComponent as CalendarIcon } from "assets/icons/calendar.svg";
 import StudyRoomItem from "./StudyRoomItem";
+import { detailsStudyRoomsSelector } from "recoil/selectors/studyCafeDetails";
+import { useRecoilValue } from "recoil";
 
-const StudyRoomReservation = ({ roomsData }) => {
+const StudyRoomReservation = () => {
+  const studyRoomsData = useRecoilValue(detailsStudyRoomsSelector);
   const [isShowCalendar, setIsShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toLocaleDateString()
@@ -22,7 +25,7 @@ const StudyRoomReservation = ({ roomsData }) => {
             </div>
           </SelectDateBox>
           {isShowCalendar && <Calendar onSelectDate={() => {}} />}
-          {roomsData.map((roomData, roomIndex) => {
+          {studyRoomsData.map((roomData, roomIndex) => {
             return <StudyRoomItem roomData={roomData} key={roomIndex} />;
           })}
         </StudyRoomTabLayout>
