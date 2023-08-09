@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { formatNumberWithCommas } from "utils/formatNumber";
+import NumberController from "components/common/NumberController";
 
 const StudyRoomItem = ({
   roomData: {
@@ -10,6 +11,7 @@ const StudyRoomItem = ({
     price,
     type,
     conveniences,
+    paidConveniences,
     canReserveDatetime,
     photos,
   },
@@ -25,7 +27,7 @@ const StudyRoomItem = ({
         </SmallImagesSlider>
       </ItemLeftSection>
       <ItemRightSection>
-        <StudyCafeTopMainInfoBox>
+        <StudyRoomMainInfoBox>
           <div className="info">
             {name}
             <div className="info__sub">{`최소 ${minCount}인 ~ 최대 ${maxCount}인`}</div>
@@ -36,7 +38,37 @@ const StudyRoomItem = ({
               {type === "PER_HOUR" ? "/ 시간" : "/ 인"}
             </div>
           </div>
-        </StudyCafeTopMainInfoBox>
+        </StudyRoomMainInfoBox>
+        <StudyRoomExtraOptionsBox>
+          <PaidConveniencesBox>
+            <div>유료 편의시설</div>
+            <select
+              name="paidConveniences"
+              className="select"
+              defaultValue={"선택하기"}
+            >
+              <option>선택하기</option>
+              {paidConveniences.map((item, itemIndex) => (
+                <option value={JSON.stringify(item)} key={itemIndex}>
+                  {item.convenienceName}
+                </option>
+              ))}
+            </select>
+          </PaidConveniencesBox>
+          <UserNumberCounterBox>
+            <span>인원수</span>
+            <NumberController minCount={minCount} maxCount={maxCount} />
+          </UserNumberCounterBox>
+        </StudyRoomExtraOptionsBox>
+        <ExpectedPriceLayout>
+          <div>
+            <span>예상 결제 금액</span>
+            <span className="highlight">{`${formatNumberWithCommas(
+              15000
+            )}원`}</span>
+          </div>
+        </ExpectedPriceLayout>
+        <ReservationButton>예약하기</ReservationButton>
       </ItemRightSection>
     </ItemContainer>
   );
@@ -89,7 +121,7 @@ const ItemRightSection = styled.section`
   width: 50%;
 `;
 
-const StudyCafeTopMainInfoBox = styled.div`
+const StudyRoomMainInfoBox = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -104,4 +136,72 @@ const StudyCafeTopMainInfoBox = styled.div`
       color: ${({ theme }) => theme.colors.gray500};
     }
   }
+  margin-bottom: 4rem;
+`;
+
+const StudyRoomExtraOptionsBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${({ theme }) => theme.fonts.body1};
+  margin-bottom: 3rem;
+`;
+
+const PaidConveniencesBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    ${({ theme }) => theme.fonts.body2};
+    width: 15rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.gray500};
+    padding: 0 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      border-color: ${({ theme }) => theme.colors.mainDark};
+    }
+  }
+
+  select option:checked {
+    color: red;
+  }
+`;
+
+const UserNumberCounterBox = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const ExpectedPriceLayout = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  div {
+    display: flex;
+    gap: 2rem;
+    ${({ theme }) => theme.fonts.body1};
+    .highlight {
+      ${({ theme }) => theme.fonts.body1Bold};
+    }
+  }
+  margin-bottom: 1rem;
+`;
+
+const ReservationButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  border-radius: 1.5rem;
+  background-color: ${({ theme }) => theme.colors.mainDark};
+  ${({ theme }) => theme.fonts.body1Bold};
+  color: #fff;
 `;
