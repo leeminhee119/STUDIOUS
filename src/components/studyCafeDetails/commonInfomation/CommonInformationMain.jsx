@@ -2,10 +2,10 @@ import styled from "styled-components";
 import ImagesGrid from "./ImagesGrid";
 import HashTagsRow from "./HashTagsRow";
 import { useRecoilValue } from "recoil";
-import { detailsCommonState } from "recoil/atoms/detailsCommonState";
+import { detailsCommonSelector } from "recoil/selectors/detailsCommonSelector";
 
 const CommonInformationMain = () => {
-  const commonDetails = useRecoilValue(detailsCommonState);
+  const commonDetails = useRecoilValue(detailsCommonSelector);
   const {
     cafeName,
     cafePhotos,

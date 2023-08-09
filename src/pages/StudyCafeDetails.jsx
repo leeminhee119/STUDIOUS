@@ -1,10 +1,7 @@
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import CommonInformation from "components/studyCafeDetails/commonInfomation/CommonInformation";
 import NavBar from "components/studyCafeDetails/NavBar";
 import StudyRoomReservation from "components/studyCafeDetails/studyRoomReservation/StudyRoomReservation";
-import { useSetRecoilState } from "recoil";
-import { detailsCommonState } from "recoil/atoms/detailsCommonState";
-
 const StudyCafeDetails = () => {
   const DUMMY_IMG_URL =
     "http://www.doits.co.kr/data/file/place/990343814_DLkXE5Uy_0dc8f9a7bd1dc4d18bf89d1e3a3877cc06ac77c4.jpg";
@@ -225,12 +222,10 @@ const StudyCafeDetails = () => {
       },
     ],
   };
-
-  const setDetailsCommon = useSetRecoilState(detailsCommonState);
   const NAVBAR_CONTENTS = [
     {
       name: "스터디룸 예약",
-      component: <StudyRoomReservation roomsData={DUMMY_DATA.rooms} />,
+      component: <StudyRoomReservation roomsData={DUMMY_DATA_2.rooms} />,
     },
     {
       name: "리뷰",
@@ -250,28 +245,6 @@ const StudyCafeDetails = () => {
     },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
-  const {
-    cafeName,
-    cafePhotos,
-    accumResCnt,
-    distance,
-    nearestStation,
-    hashtags,
-    introduction,
-    conveniences,
-  } = DUMMY_DATA_2;
-  useLayoutEffect(() => {
-    setDetailsCommon({
-      cafeName,
-      cafePhotos,
-      accumResCnt,
-      distance,
-      nearestStation,
-      hashtags,
-      introduction,
-      conveniences,
-    });
-  }, []);
   return (
     <>
       <CommonInformation />
