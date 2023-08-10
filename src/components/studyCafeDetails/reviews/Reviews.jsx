@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import TabContainer from "components/studyCafeDetails/TabContainer";
 import { ReactComponent as ThumbsUpIcon } from "assets/icons/thumbsUp.svg";
 import ProgressBar from "components/common/ProgressBar";
-import { detailsReviewsSelector } from "recoil/selectors/studyCafeDetails";
-import { useRecoilValue } from "recoil";
 import StarsGrade from "components/common/StarsGrade";
 import ReviewsList from "./ReviewsList";
+import { detailsReviewsSelector } from "recoil/selectors/studyCafeDetails";
+import { useRecoilValue } from "recoil";
 
 const Reviews = () => {
   const {
@@ -17,7 +18,7 @@ const Reviews = () => {
   } = useRecoilValue(detailsReviewsSelector);
 
   return (
-    <>
+    <TabContainer title={"리뷰"}>
       <RecommendPercentageContainer>
         <div>
           <span>추천해요</span>
@@ -55,7 +56,7 @@ const Reviews = () => {
         </section>
       </StarsGradeContainer>
       <ReviewsList reviewData={reviewInfo} />
-    </>
+    </TabContainer>
   );
 };
 
@@ -95,5 +96,5 @@ const StarsGradeContainer = styled.div`
       margin-bottom: 3.5rem;
     }
   }
-  margin-bottom: 18rem;
+  margin-bottom: 10rem;
 `;

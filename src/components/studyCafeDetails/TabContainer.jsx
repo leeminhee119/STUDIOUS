@@ -16,7 +16,7 @@ const TitleBox = styled.div`
   border-bottom: 5px solid ${({ theme }) => theme.colors.mainDark};
   padding-bottom: 5px;
   display: inline-flex;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 `;
 
 const ChildrenContainer = styled.div``;
