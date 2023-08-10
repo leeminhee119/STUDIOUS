@@ -4,7 +4,9 @@ import { ReactComponent as StarYellowIcon } from "assets/icons/starYellow.svg";
 
 /**
  * 별점 보여주는 컴포넌트 (점수만큼 노란 별로 채워짐)
- * @param {{number, number}} {size, grade}
+ * @param {Object} obj
+ * @param {number} obj.size 별 하나의 크기
+ * @param {number} obj.grade 별점 (5점 만점)
  * @returns grade만큼 채워진 별점 컴포넌트
  */
 const StarsGrade = ({ size, grade }) => {
