@@ -19,19 +19,30 @@ const HashTagSelector = ({ onSelect }) => {
     "프라이빗",
   ];
 
+  const maxSelectableTags = 5;
+
   const handleTagSelect = (tag) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(
         selectedTags.filter((selectedTag) => selectedTag !== tag)
       );
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      if (selectedTags.length < maxSelectableTags) {
+        setSelectedTags([...selectedTags, tag]);
+      }
     }
   };
 
+  const selectedCount = selectedTags.length;
+
   return (
     <HashTagSelectorWrapper>
-      <HashTagLabel>해시태그 선택</HashTagLabel>
+      <HashTagLabel>
+        해시태그 선택{" "}
+        <SelectedCount>
+          ({selectedCount} / {maxSelectableTags})
+        </SelectedCount>
+      </HashTagLabel>
       <HashTagList>
         {allTags.map((tag) => (
           <HashTagButton
@@ -42,40 +53,52 @@ const HashTagSelector = ({ onSelect }) => {
           </HashTagButton>
         ))}
       </HashTagList>
-      {/*  onSelect(selectedTags) */}
     </HashTagSelectorWrapper>
   );
 };
 
 const HashTagSelectorWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   margin: 1rem 10rem;
 `;
 
 const HashTagLabel = styled.div`
   ${({ theme }) => theme.fonts.body1Bold};
   color: ${({ theme }) => theme.colors.gray900};
-  margin-bottom: 0.5rem;
+  margin-right: 3rem;
+  margin-top: 2rem;
 `;
 
 const HashTagList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  width: 30rem;
+  margin-top: 2rem;
 `;
 
 const HashTagButton = styled.button`
-  ${({ theme }) => theme.fonts.body2};
+  ${({ theme }) => theme.fonts.caption2};
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.main : theme.colors.gray100};
+    isSelected ? "rgba(0, 39, 176, 0.3)" : theme.colors.gray200};
   color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.white : theme.colors.gray700};
+    isSelected ? theme.colors.white : theme.colors.black};
   border: none;
-  border-radius: 2rem;
+  border-radius: 1rem;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
+  width: 8.5rem;
+  height: 3.5rem;
   cursor: pointer;
   outline: none;
+`;
+
+const SelectedCount = styled.span`
+  ${({ theme }) => theme.fonts.body1};
+  color: #000000;
+  display: flex;
+  margin-left: 5.5rem;
 `;
 
 export default HashTagSelector;

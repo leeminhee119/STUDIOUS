@@ -29,7 +29,7 @@ const Reviews = () => {
 
   const DUMMY_DATA1 = [
     {
-      id: 1,
+      reservationId: 1,
       cafeId: 1,
       cafeName: "혜화 열정공장",
       cafePhoto: null,
@@ -43,7 +43,7 @@ const Reviews = () => {
       validDate: "2023.6.30",
     },
     {
-      id: 1,
+      reservationId: 2,
       cafeId: 2,
       cafeName: "스캇",
       cafePhoto: null,
@@ -60,7 +60,7 @@ const Reviews = () => {
 
   const DUMMY_DATA2 = [
     {
-      id: 1,
+      reservationId: 1,
       cafeId: 1,
       cafeName: "혜화 열정공장",
       cafePhoto: null,
@@ -80,7 +80,7 @@ const Reviews = () => {
         "스터디룸이 깔끔하고 어쩌구 비품도 관리가 잘 되어있고 어쩌구 쾌적한 환견에서 팀원들이랑 어쩌구 나중에도",
     },
     {
-      id: 1,
+      reservationId: 2,
       cafeId: 2,
       cafeName: "스캇",
       cafePhoto: null,
@@ -111,7 +111,7 @@ const Reviews = () => {
 
   const handleWriteReview = (review) => {
     console.log("리뷰 작성 페이지로 이동:", review);
-    navigate("/write-review", { state: { review } });
+    navigate("/reviews/write", { state: { review } });
   };
 
   const handleUpdateReview = (review) => {
@@ -148,7 +148,7 @@ const Reviews = () => {
         <>
           {writableReviews.map((review) => (
             <>
-              <ReviewCafeList item={review} key={review.id} />
+              <ReviewCafeList item={review} key={review.reservationId} />
               <Validdate>{review.validDate}까지 작성 가능</Validdate>
               <WriteButton onClick={() => handleWriteReview(review)}>
                 리뷰 작성하기
@@ -160,7 +160,7 @@ const Reviews = () => {
       ) : (
         <>
           {writtenReviews.map((review) => (
-            <ReviewContainer key={review.id}>
+            <ReviewContainer key={review.reservationId}>
               <CafeInfo>
                 <CafeImage
                   src={review.cafePhoto ?? IMG_DUMMY_URL}

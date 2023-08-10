@@ -46,7 +46,7 @@ function App() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/search-result" element={<SearchResult />} />
                 <Route path="/reviews" element={<Reviews />} />
-                <Route path="/review/write" element={<ReviewWrite />} />
+                <Route path="/reviews/write" element={<ReviewWrite />} />
                 <Route path="/review/edit/:reviewId" component={ReviewEdit} />
               </Routes>
             </Layout>
