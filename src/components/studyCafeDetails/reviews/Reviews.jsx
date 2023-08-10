@@ -4,6 +4,7 @@ import ProgressBar from "components/common/ProgressBar";
 import { detailsReviewsSelector } from "recoil/selectors/studyCafeDetails";
 import { useRecoilValue } from "recoil";
 import StarsGrade from "components/common/StarsGrade";
+import ReviewsList from "./ReviewsList";
 
 const Reviews = () => {
   const {
@@ -53,6 +54,7 @@ const Reviews = () => {
           <div className="right-section__grade"></div>
         </section>
       </StarsGradeContainer>
+      <ReviewsList reviewData={reviewInfo} />
     </>
   );
 };
