@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { detailsStudyRoomsSelector } from "recoil/selectors/studyCafeDetails";
 import { useRecoilValue } from "recoil";
+import ReviewItem from "./ReviewItem";
 
 const ReviewsList = ({ reviewData }) => {
   const studyRoomsData = useRecoilValue(detailsStudyRoomsSelector);
@@ -28,6 +29,21 @@ const ReviewsList = ({ reviewData }) => {
           )}
         </OrderBySelector>
       </ListHeader>
+      {reviewData.map(({ grade, email, detail, photos, date }, reviewIndex) => (
+        <ReviewItemContainer
+          key={reviewIndex}
+          hasBorder={reviewIndex !== reviewData.length - 1}
+        >
+          <ReviewItem
+            key={reviewIndex}
+            grade={grade}
+            email={email}
+            detail={detail}
+            photos={photos}
+            date={date}
+          />
+        </ReviewItemContainer>
+      ))}
     </>
   );
 };
@@ -51,4 +67,9 @@ const OrderBySelector = styled.div`
   button:not(.firstOption) {
     border-left: 1px solid;
   }
+`;
+
+const ReviewItemContainer = styled.div`
+  ${({ hasBorder, theme }) =>
+    hasBorder && `border-bottom: 2px solid ${theme.colors.gray200}`}
 `;
