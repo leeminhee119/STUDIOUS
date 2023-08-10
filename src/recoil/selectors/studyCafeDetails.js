@@ -146,3 +146,25 @@ export const detailsStudyRoomsSelector = selector({
     return rooms;
   },
 });
+
+export const detailsReviewsSelector = selector({
+  key: "DetailsReviews",
+  get: () => {
+    const {
+      reviewInfo,
+      recommendationRate,
+      cleanliness,
+      deafening,
+      fixturesStatus,
+      total,
+    } = DUMMY_DATA_2;
+    return {
+      reviewInfo,
+      recommendationRate,
+      cleanliness,
+      deafening,
+      fixturesStatus,
+      total,
+    };
+  },
+});
