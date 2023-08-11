@@ -7,7 +7,7 @@ import DateFilter from "components/DateFilter";
 const Reviews = () => {
   const [writableReviews, setWritableReviews] = useState([]);
   const [writtenReviews, setWrittenReviews] = useState([]);
-  const [activeTab, setActiveTab] = useState("writable"); // 기본으로 작성 가능한 리뷰 탭이 활성화
+  const [activeTab, setActiveTab] = useState("writable");
 
   const IMG_DUMMY_URL =
     "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg";
@@ -29,7 +29,7 @@ const Reviews = () => {
 
   const DUMMY_DATA1 = [
     {
-      id: 1,
+      reservationId: 1,
       cafeId: 1,
       cafeName: "혜화 열정공장",
       cafePhoto: null,
@@ -43,7 +43,7 @@ const Reviews = () => {
       validDate: "2023.6.30",
     },
     {
-      id: 1,
+      reservationId: 2,
       cafeId: 2,
       cafeName: "스캇",
       cafePhoto: null,
@@ -60,7 +60,7 @@ const Reviews = () => {
 
   const DUMMY_DATA2 = [
     {
-      id: 1,
+      reservationId: 1,
       cafeId: 1,
       cafeName: "혜화 열정공장",
       cafePhoto: null,
@@ -80,7 +80,7 @@ const Reviews = () => {
         "스터디룸이 깔끔하고 어쩌구 비품도 관리가 잘 되어있고 어쩌구 쾌적한 환경에서 팀원들이랑 어쩌구 나중에도 이용할 ",
     },
     {
-      id: 1,
+      reservationId: 2,
       cafeId: 2,
       cafeName: "스캇",
       cafePhoto: null,
@@ -105,7 +105,6 @@ const Reviews = () => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
       stars.push(<Star key={i} filled={i < value} />);
-      //stars.push("⭐️ ");
     }
     return <StarContainer>{stars}</StarContainer>;
   };
@@ -132,6 +131,10 @@ const Reviews = () => {
   const handleDeleteReview = (review) => {
     console.log("리뷰 삭제", review);
   };
+
+  useEffect(() => {
+    setWritableReviews([...DUMMY_DATA1]);
+  }, []);
 
   return (
     <Wrapper>
@@ -381,5 +384,5 @@ const StarContainer = styled.div`
 const Star = styled.span`
   font-size: 1.2rem;
   margin-right: 0.2rem;
-  color: ${({ filled }) => (filled ? "#ffcd00" : "#d2d2d2")};
+  color: ${({ filled }) => (filled ? "#F9CA24" : "##C6C6C6")};
 `;
