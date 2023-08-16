@@ -17,9 +17,8 @@ const ReviewCafeList = ({ item }) => {
           <ReviewInfo>
             결제금액 ₩{item.price}원({item.payType})
           </ReviewInfo>
-          <ReviewInfo>{item.date}</ReviewInfo>
           <ReviewInfo>
-            {item.startTime} - {item.endTime}
+            {item.date} {item.startTime} - {item.endTime} ({item.duration})
           </ReviewInfo>
         </CafeDetails>
       </CafeInfo>
@@ -55,7 +54,7 @@ const CafeDetails = styled.div`
 const ReviewInfoCafe = styled.div`
   ${({ theme }) => theme.fonts.body1Bold};
   color: ${({ theme }) => theme.colors.gray900};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const ReviewInfo = styled.div`

@@ -3,11 +3,14 @@ import axios from "axios";
 import styled from "styled-components";
 import ReviewCafeList from "components/ReviewCafeList";
 import DateFilter from "components/DateFilter";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [writableReviews, setWritableReviews] = useState([]);
   const [writtenReviews, setWrittenReviews] = useState([]);
   const [activeTab, setActiveTab] = useState("writable");
+
+  const navigate = useNavigate();
 
   const IMG_DUMMY_URL =
     "https://www.idjnews.kr/news/photo/202008/124221_84195_2158.jpg";
@@ -122,10 +125,12 @@ const Reviews = () => {
 
   const handleWriteReview = (review) => {
     console.log("리뷰 작성 페이지로 이동:", review);
+    navigate("/reviews/write", { state: { review } });
   };
 
   const handleUpdateReview = (review) => {
     console.log("리뷰 수정 페이지로 이동:", review);
+    navigate(`/edit-review/${review.id}`, { state: { review } });
   };
 
   const handleDeleteReview = (review) => {
@@ -160,62 +165,46 @@ const Reviews = () => {
       {activeTab === "writable" ? (
         <>
           {writableReviews.map((review) => (
-            <div key={review.id}>
-              <ReviewCafeList item={review} />
+            <>
+              <ReviewCafeList item={review} key={review.reservationId} />
               <Validdate>{review.validDate}까지 작성 가능</Validdate>
               <WriteButton onClick={() => handleWriteReview(review)}>
                 리뷰 작성하기
               </WriteButton>
               <Separator />
-            </div>
+            </>
           ))}
         </>
       ) : (
         <>
           {activeTab === "written" && <DateFilter />}
           {writtenReviews.map((review) => (
-            <div key={review.id}>
-              <ReviewContainer key={review.id}>
-                <CafeInfo>
-                  <CafeImage
-                    src={review.cafePhoto ?? IMG_DUMMY_URL}
-                    alt="스터디카페 이미지"
-                  />
-                  <CafeDetails>
-                    <ReviewInfoCafe>{review.cafeName}</ReviewInfoCafe>
-                    <ReviewInfo>이용일자: {review.date}</ReviewInfo>
-                    <ReviewInfo>{review.roomName}</ReviewInfo>
-                  </CafeDetails>
-                </CafeInfo>
-                <SmallDivider></SmallDivider>
-                <ReviewInlineInfo>
-                  <ReviewStar>
-                    <span>청결도</span>{" "}
-                    <StarRating value={review.cleanliness} />
-                    <span>방음</span> <StarRating value={review.deafening} />
-                    <span>비품상태</span>{" "}
-                    <StarRating value={review.fixtureStatus} />
-                  </ReviewStar>
-                  <ReviewInfoDate>작성 일자: {review.writedate}</ReviewInfoDate>
-                </ReviewInlineInfo>
-                <ReviewImageDetail>
-                  <ReviewImage
-                    src={review.reviewPhoto ?? IMG_DUMMY_URL}
-                    alt="리뷰 이미지"
-                  />
-                  <ReviewInfoText>{review.detail}</ReviewInfoText>
-                </ReviewImageDetail>
-                <ReviewButtonWrapper>
-                  <UpdateButton onClick={() => handleUpdateReview(review)}>
-                    리뷰 수정
-                  </UpdateButton>
-                  <UpdateButton onClick={() => handleDeleteReview(review)}>
-                    리뷰 삭제
-                  </UpdateButton>
-                </ReviewButtonWrapper>
-                <Divider></Divider>
-              </ReviewContainer>
-            </div>
+            <ReviewContainer key={review.reservationId}>
+              <CafeInfo>
+                <CafeImage
+                  src={review.cafePhoto ?? IMG_DUMMY_URL}
+                  alt="스터디카페 이미지"
+                />
+                <CafeDetails>
+                  <ReviewInfoCafe>{review.cafeName}</ReviewInfoCafe>
+                  <ReviewInfo>이용일자: {review.date}</ReviewInfo>
+                  <ReviewInfo>{review.roomName}</ReviewInfo>
+                </CafeDetails>
+              </CafeInfo>
+              <SmallDivider></SmallDivider>
+              <ReviewStar>청결도 {review.cleanliness}</ReviewStar>
+              <ReviewStar>방음 {review.deafening}</ReviewStar>
+              <ReviewStar>비품상태 {review.fixtureStatus}</ReviewStar>
+              <ReviewInfoDate>작성 일자: {review.writedate}</ReviewInfoDate>
+              <ReviewInfoText>{review.detail}</ReviewInfoText>
+              <WriteButton onClick={() => handleUpdateReview(review)}>
+                리뷰 수정
+              </WriteButton>
+              <WriteButton onClick={() => handleDeleteReview(review)}>
+                리뷰 삭제
+              </WriteButton>
+              <Divider></Divider>
+            </ReviewContainer>
           ))}
         </>
       )}
