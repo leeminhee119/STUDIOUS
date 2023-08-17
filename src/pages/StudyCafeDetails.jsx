@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useState } from "react";
 import CommonInformation from "components/studyCafeDetails/commonInfomation/CommonInformation";
 import NavBar from "components/studyCafeDetails/NavBar";
@@ -36,9 +37,15 @@ const StudyCafeDetails = () => {
         onClickMenu={(idx) => setActiveIndex(idx)}
         activeIndex={activeIndex}
       />
-      {NAVBAR_CONTENTS[activeIndex].component}
+      <DetailContentLayout>
+        {NAVBAR_CONTENTS[activeIndex].component}
+      </DetailContentLayout>
     </>
   );
 };
 
 export default StudyCafeDetails;
+
+const DetailContentLayout = styled.div`
+  margin-bottom: 10rem;
+`;
