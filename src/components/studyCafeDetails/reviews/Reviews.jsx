@@ -6,6 +6,7 @@ import StarsGrade from "components/common/StarsGrade";
 import ReviewsList from "./ReviewsList";
 import { detailsReviewsSelector } from "recoil/selectors/studyCafeDetails";
 import { useRecoilValue } from "recoil";
+import Pagination from "components/Pagination";
 
 const Reviews = () => {
   const {
@@ -17,6 +18,7 @@ const Reviews = () => {
     total,
   } = useRecoilValue(detailsReviewsSelector);
 
+  const LIST_ITEMS_PER_PAGE = 3;
   return (
     <TabContainer title={"리뷰"}>
       <RecommendPercentageContainer>
@@ -56,6 +58,11 @@ const Reviews = () => {
         </section>
       </StarsGradeContainer>
       <ReviewsList reviewData={reviewInfo} />
+      <Pagination
+        currentPage={1}
+        totalPages={parseInt(reviewInfo.length / LIST_ITEMS_PER_PAGE, 10)}
+        onPageChange={() => {}}
+      />
     </TabContainer>
   );
 };
