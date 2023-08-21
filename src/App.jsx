@@ -17,6 +17,7 @@ import SearchResult from "pages/SearchResult";
 import Reviews from "pages/Reviews";
 import ReviewWrite from "pages/ReviewWrite";
 import ReviewEdit from "pages/ReviewEdit";
+import Reservation from "pages/Reservation";
 
 function App() {
   const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/reviews" element={<Reviews />} />
                 <Route path="/reviews/write" element={<ReviewWrite />} />
                 <Route path="/review/edit/:reviewId" component={ReviewEdit} />
+                <Route path="/reservation" element={<Reservation />} />
               </Routes>
             </Layout>
           </ThemeProvider>
