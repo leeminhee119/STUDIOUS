@@ -14,6 +14,9 @@ import OAuthLogin from "pages/OAuthLogin";
 import StudyCafeDetails from "pages/StudyCafeDetails";
 import Search from "pages/Search";
 import SearchResult from "pages/SearchResult";
+import Reviews from "pages/Reviews";
+import ReviewWrite from "pages/ReviewWrite";
+import ReviewEdit from "pages/ReviewEdit";
 
 function App() {
   const queryClient = new QueryClient();
@@ -47,6 +50,9 @@ function App() {
                 />
                 <Route path="/search" element={<Search />} />
                 <Route path="/search-result" element={<SearchResult />} />
+                <Route path="/reviews" element={<Reviews />} />
+                <Route path="/reviews/write" element={<ReviewWrite />} />
+                <Route path="/review/edit/:reviewId" component={ReviewEdit} />
               </Routes>
             </Layout>
           </ThemeProvider>

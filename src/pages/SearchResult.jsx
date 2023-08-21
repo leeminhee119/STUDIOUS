@@ -8,13 +8,14 @@ import Pagination from "components/Pagination";
 
 const SearchResult = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [sortOption, setSortOption] = useState("가격낮은순");
+  const [sortOption, setSortOption] = useState("GRADE_DESC");
   const location = useLocation();
   const searchResult = location.state?.searchResult || [];
 
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
 
+  console.log(searchResult);
   const handleFilterButtonClick = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -38,11 +39,10 @@ const SearchResult = () => {
     <SearchResultContainer>
       <FilterSortContainer>
         <SortSelect value={sortOption} onChange={handleSortOptionChange}>
-          <option value="가격낮은순">가격 낮은 순</option>
           <option value="리뷰많은순">리뷰 많은 순</option>
-          <option value="예약많은순">예약 많은 순</option>
-          <option value="평점높은순">평점 높은 순</option>
-          <option value="평점낮은순">평점 낮은 순</option>
+          <option value="RESERVATION_DESC">예약 많은 순</option>
+          <option value="GRADE_DESC">평점 높은 순</option>
+          <option value="GRADE_ASC">평점 낮은 순</option>
         </SortSelect>
 
         <FilterButton onClick={handleFilterButtonClick}>
@@ -54,7 +54,7 @@ const SearchResult = () => {
 
       <GridContainer>
         {displayedItems.map((item, index) => (
-          <StyledStudyCafeGridItem key={item.id} item={item} index={index} />
+          <StudyCafeGridItem key={item.id} item={item} index={index} />
         ))}
       </GridContainer>
 
@@ -91,7 +91,7 @@ const GridContainer = styled.div`
   gap: 5rem;
   max-width: 122rem;
   width: 100%;
-  margin: 3.5rem 5rem 5rem 5rem;
+  margin: 0;
   justify-items: center;
 `;
 
@@ -99,30 +99,6 @@ const FilterButton = styled.button`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-`;
-
-const StyledStudyCafeGridItem = styled(StudyCafeGridItem)`
-  margin-top: 2rem;
-`;
-
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-`;
-
-const PageButton = styled.button`
-  ${({ theme }) => theme.fonts.body2};
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.primary : theme.colors.gray800};
-  background-color: transparent;
-  border: none;
-  margin: 0 0.5rem;
-  cursor: pointer;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 export default SearchResult;
