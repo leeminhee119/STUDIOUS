@@ -14,6 +14,7 @@ import OAuthLogin from "pages/OAuthLogin";
 import StudyCafeDetails from "pages/StudyCafeDetails";
 import Search from "pages/Search";
 import SearchResult from "pages/SearchResult";
+import Reservation from "pages/Reservation";
 
 function App() {
   const queryClient = new QueryClient();
@@ -44,6 +45,10 @@ function App() {
                 <Route
                   path="/studyCafe/:studyCafeId"
                   element={<StudyCafeDetails />}
+                />
+                <Route
+                  path="/studyCafe/:studyCafeId/reservation"
+                  element={<Reservation />}
                 />
                 <Route path="/search" element={<Search />} />
                 <Route path="/search-result" element={<SearchResult />} />
