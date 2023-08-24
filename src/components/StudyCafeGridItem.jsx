@@ -34,9 +34,10 @@ const StudyCafeGridItem = ({
             : null}
         </ItemDetailsMeta>
         <ItemDetailsHashtags>
-          {hashtags.map((hashtag, hashtagIndex) => (
-            <div key={hashtagIndex}>#{hashtag}</div>
-          ))}
+          {hashtags.length > 0 &&
+            hashtags.map((hashtag, hashtagIndex) => (
+              <div key={hashtagIndex}>#{hashtag}</div>
+            ))}
         </ItemDetailsHashtags>
       </ItemDetails>
     </ItemLayout>
