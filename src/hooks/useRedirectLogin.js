@@ -1,9 +1,8 @@
 import { getCookie } from "utils/cookie";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const useRedirectLogin = (path) => {
-  const [NavigateLogin, setNavigateLogin] = useState(null);
+const useRedirectLogin = () => {
+  const navigate = useNavigate();
   const handleRedirect = () => {
     try {
       if (!getCookie("accessToken")) {
@@ -12,10 +11,8 @@ const useRedirectLogin = (path) => {
             "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
           )
         ) {
-          setNavigateLogin(<Navigate to="/login" />);
+          navigate("/login");
         }
-      } else if (path) {
-        setNavigateLogin(<Navigate to={path} />);
       }
     } catch (error) {
       console.error(error);
@@ -23,7 +20,6 @@ const useRedirectLogin = (path) => {
   };
 
   return {
-    NavigateLogin,
     handleRedirect,
   };
 };

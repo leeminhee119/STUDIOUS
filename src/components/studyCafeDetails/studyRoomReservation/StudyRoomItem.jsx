@@ -17,9 +17,7 @@ const StudyRoomItem = ({
     photos,
   },
 }) => {
-  const { NavigateLogin, handleRedirect } = useRedirectLogin(
-    `/studyCafe/${id}/reservation`
-  );
+  const { handleRedirect } = useRedirectLogin(`/studyCafe/${id}/reservation`);
   return (
     <ItemContainer>
       <ItemLeftSection>
@@ -73,7 +71,6 @@ const StudyRoomItem = ({
           </div>
         </ExpectedPriceLayout>
         <ReservationButton onClick={handleRedirect}>예약하기</ReservationButton>
-        {NavigateLogin}
       </ItemRightSection>
     </ItemContainer>
   );
