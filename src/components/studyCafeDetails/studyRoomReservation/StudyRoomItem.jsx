@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { formatNumberWithCommas } from "utils/formatNumber";
 import NumberController from "components/common/NumberController";
 import useRedirectLogin from "hooks/useRedirectLogin";
+import { useNavigate } from "react-router-dom";
 
 const StudyRoomItem = ({
   roomData: {
@@ -17,7 +18,12 @@ const StudyRoomItem = ({
     photos,
   },
 }) => {
-  const { handleRedirect } = useRedirectLogin(`/studyCafe/${id}/reservation`);
+  const navigate = useNavigate();
+  const { handleRedirect } = useRedirectLogin();
+  const handleClickReservation = () => {
+    handleRedirect();
+    navigate(`/studyCafe/${id}/reservation`);
+  };
   return (
     <ItemContainer>
       <ItemLeftSection>
@@ -70,7 +76,9 @@ const StudyRoomItem = ({
             )}원`}</span>
           </div>
         </ExpectedPriceLayout>
-        <ReservationButton onClick={handleRedirect}>예약하기</ReservationButton>
+        <ReservationButton onClick={handleClickReservation}>
+          예약하기
+        </ReservationButton>
       </ItemRightSection>
     </ItemContainer>
   );
