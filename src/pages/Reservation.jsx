@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { reservationInfoState } from "recoil/atoms/reservationInfoState";
 import { useRecoilValue } from "recoil";
 import Divider from "components/common/Divider";
+import useRedirectLogin from "hooks/useRedirectLogin";
+import { useEffect } from "react";
 
 const DUMMY_DATA = {
   cafeName: "(스터디카페 이름)",
@@ -37,6 +39,9 @@ const Reservation = () => {
     username,
     userphoneNumber,
   } = DUMMY_DATA;
+  const { handleRedirect } = useRedirectLogin({ isDirectAccessWithUrl: true });
+  useEffect(() => handleRedirect(), [handleRedirect]);
+
   const { date, startTime, endTime, duration, headcount, price } =
     useRecoilValue(reservationInfoState);
   return (

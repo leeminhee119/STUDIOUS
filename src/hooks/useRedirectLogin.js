@@ -1,7 +1,7 @@
 import { getCookie } from "utils/cookie";
 import { useNavigate } from "react-router-dom";
 
-const useRedirectLogin = () => {
+const useRedirectLogin = ({ isDirectAccessWithUrl = false }) => {
   const navigate = useNavigate();
   const handleRedirect = () => {
     try {
@@ -12,6 +12,9 @@ const useRedirectLogin = () => {
           )
         ) {
           navigate("/login");
+        } else {
+          // 해당 url로 바로 접속했을 경우엔 이전 페이지가 없으므로 홈으로 리다이렉트 시킵니다.
+          if (isDirectAccessWithUrl) navigate("/");
         }
       }
     } catch (error) {
