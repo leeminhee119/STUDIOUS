@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { reservationInfoState } from "recoil/atoms/reservationInfoState";
 import { useRecoilValue } from "recoil";
-import Divider from "components/common/Divider";
+import RemoteControl from "components/reservation/RemoteControl";
+import { useState, useEffect } from "react";
 import useRedirectLogin from "hooks/useRedirectLogin";
-import { useEffect } from "react";
 
 const DUMMY_DATA = {
   cafeName: "(스터디카페 이름)",
@@ -39,73 +39,39 @@ const Reservation = () => {
     username,
     userphoneNumber,
   } = DUMMY_DATA;
-  const { handleRedirect } = useRedirectLogin({ isDirectAccessWithUrl: true });
+  const { handleRedirect } = useRedirectLogin(true);
   useEffect(() => handleRedirect(), [handleRedirect]);
-
+  window.scrollTo(0, 0);
   const { date, startTime, endTime, duration, headcount, price } =
     useRecoilValue(reservationInfoState);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedConveniences, setSelectedConveniences] = useState([]);
   return (
     <>
       <Title>{cafeName}</Title>
-      <RemoteSection>
-        <RemoteControlBox>
-          <RemoteControlInfoBox>
-            <div className="info-row">
-              <div className="info-row__label">예약날짜</div>
-              <div className="info-row__content">{date}</div>
-            </div>
-            <div className="info-row">
-              <div className="info-row__label">예약시간</div>
-              <div className="info-row__content">{`${startTime} - ${endTime} (${duration}시간)`}</div>
-            </div>
-            <div className="info-row">
-              <div className="info-row__label">인원수</div>
-              <div className="info-row__content">{headcount}</div>
-            </div>
-          </RemoteControlInfoBox>
-          <Divider
-            type="horizontal"
-            style={{
-              backgroundColor: `${({ theme }) => theme.colors.gray500}`,
-            }}
-          />
-        </RemoteControlBox>
-      </RemoteSection>
+      <RemoteControlSection>
+        <RemoteControl
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          duration={duration}
+          headcount={headcount}
+          selectedConveniences={selectedConveniences}
+          totalPrice={totalPrice}
+        />
+      </RemoteControlSection>
     </>
   );
 };
 
 export default Reservation;
 
-const RemoteSection = styled.section`
+const Title = styled.div`
+  ${({ theme }) => theme.fonts.heading1Bold};
+`;
+
+const RemoteControlSection = styled.section`
   width: 30%;
   float: right;
   height: 100vh;
-`;
-
-const RemoteControlBox = styled.div`
-  width: 35rem;
-  margin: 0 auto;
-  min-height: 48rem;
-  border-radius: 2.5rem;
-  padding: 3rem;
-  background-color: ${({ theme }) => theme.colors.main30}30;
-  position: fixed;
-`;
-
-const RemoteControlInfoBox = styled.div`
-  ${({ theme }) => theme.fonts.body2}
-  display: flex;
-  flex-direction: column;
-  gap: 1.7rem;
-  .info-row {
-    display: flex;
-    gap: 1rem;
-    &__label {
-      width: 30%;
-    }
-  }
-`;
-const Title = styled.div`
-  ${({ theme }) => theme.fonts.heading1Bold};
 `;

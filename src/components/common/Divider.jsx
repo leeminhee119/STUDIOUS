@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 const Divider = ({
   type = "horizontal",
-  margin = 8,
+  margin = 1,
   length = "100%",
   ...props
 }) => {
   const dividerStyle = {
-    margin: type === "vertical" ? `0 ${margin}px` : `${margin}px 0`,
+    margin: type === "vertical" ? `0 ${margin}rem` : `${margin}rem 0`,
   };
   return (
     <Line
