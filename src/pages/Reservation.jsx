@@ -4,6 +4,10 @@ import { useRecoilValue } from "recoil";
 import RemoteControl from "components/reservation/RemoteControl";
 import { useState, useEffect } from "react";
 import useRedirectLogin from "hooks/useRedirectLogin";
+import Divider from "components/common/Divider";
+import { TextAreaGreyRound } from "components/common/TextArea";
+import theme from "styles/theme";
+import { formatNumberWithCommas } from "utils/formatNumber";
 
 const DUMMY_DATA = {
   cafeName: "(스터디카페 이름)",
@@ -21,10 +25,16 @@ const DUMMY_DATA = {
   roomPhoto: "https://via.placeholder.com/300x200",
   roomName: "(스터디룸 이름)",
   conveniences: ["편의시설 이름1", "편의시설 이름2"],
-  paidConveniences: {
-    "유료 편의시설 이름1": 2000,
-    "유료 편의시설 이름2": 3000,
-  },
+  paidConveniences: [
+    {
+      name: "HDMI",
+      price: 2000,
+    },
+    {
+      name: "모니터",
+      price: 3000,
+    },
+  ],
   username: "이민희",
   userphoneNumber: "01089292505",
 };
@@ -43,7 +53,7 @@ const Reservation = () => {
   useEffect(() => {
     handleRedirect();
   }, [handleRedirect]);
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const { date, startTime, endTime, duration, headcount, price } =
     useRecoilValue(reservationInfoState);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -125,19 +135,23 @@ const Reservation = () => {
                   onChange={(e) => handleChangeMemberInfo(e, "phoneNumber")}
                 />
               </div>
-              <div className="input-row--checkbox">
-                <input
-                  type="checkbox"
-                  id="sameAsPersonalInfo"
-                  onChange={handleCheckSameAsPersonalInfo}
-                />
-                <label htmlFor="sameAsPersonalInfo">회원 정보와 동일하게</label>
-              </div>
+              <CheckBoxListItem>
+                <div className="checkbox">
+                  <input
+                    type="checkbox"
+                    id="sameAsPersonalInfo"
+                    onChange={handleCheckSameAsPersonalInfo}
+                  />
+                  <label htmlFor="sameAsPersonalInfo">
+                    회원 정보와 동일하게
+                  </label>
+                </div>
+              </CheckBoxListItem>
             </Form>
           </div>
           <div className="right">
             <TitleSub>요청사항</TitleSub>
-            <textarea
+            <TextAreaGreyRound
               placeholder="요청하실 내용을 입력해주세요."
               onChange={(e) =>
                 setUserInfo((userInfo) => ({
@@ -148,7 +162,44 @@ const Reservation = () => {
             />
           </div>
         </TwoColumnContainer>
-        <RowContainer></RowContainer>
+
+        <Divider
+          length="100%"
+          style={{ backgroundColor: theme.colors.gray200 }}
+        />
+
+        <RowContainer>
+          <TitleSub>유료 편의 시설</TitleSub>
+          <CheckBoxList>
+            {paidConveniences.map((paidConvenience) => {
+              return (
+                <CheckBoxListItem>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id={paidConvenience.name}
+                      onChange={handleCheckSameAsPersonalInfo}
+                    />
+                    <label htmlFor={paidConvenience.name}>
+                      {paidConvenience.name}
+                    </label>
+                  </div>
+                  <span>₩ {formatNumberWithCommas(paidConvenience.price)}</span>
+                </CheckBoxListItem>
+              );
+            })}
+          </CheckBoxList>
+        </RowContainer>
+
+        <Divider
+          length="100%"
+          style={{ backgroundColor: theme.colors.gray200 }}
+        />
+
+        <RowContainer>
+          <TitleSub>환불 규정</TitleSub>
+          <TextAreaGreyRound readOnly={true} />
+        </RowContainer>
       </MainSection>
     </>
   );
@@ -158,26 +209,28 @@ export default Reservation;
 
 const Title = styled.div`
   ${({ theme }) => theme.fonts.heading1Bold};
-  margin-bottom: 3rem;
 `;
 
 const TitleSub = styled(Title)`
   ${({ theme }) => theme.fonts.heading2Bold};
+  margin-bottom: 2rem;
 `;
 
 const RemoteControlSection = styled.section`
   width: 30%;
   float: right;
   height: 100vh;
-  margin-left: 5rem;
 `;
 
 const MainSection = styled.section`
   width: 70%;
+  padding-right: 5rem;
 `;
 
 const RowContainer = styled.div`
-  margin-bottom: 10rem;
+  margin-bottom: 7rem;
+  margin-top: 3rem;
+  ${({ theme }) => theme.fonts.body1};
 `;
 
 const TwoColumnContainer = styled(RowContainer)`
@@ -190,17 +243,6 @@ const TwoColumnContainer = styled(RowContainer)`
       max-width: 100%;
     }
   }
-  .right {
-    textarea {
-      resize: none;
-      width: 100%;
-      height: 15rem;
-      border: none;
-      background-color: ${({ theme }) => theme.colors.mostLight};
-      border-radius: 2.5rem;
-      padding: 3rem;
-    }
-  }
 `;
 
 const StudyRoomName = styled.div`
@@ -208,7 +250,6 @@ const StudyRoomName = styled.div`
 `;
 
 const Form = styled.form`
-  ${({ theme }) => theme.fonts.body1};
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
@@ -222,8 +263,21 @@ const Form = styled.form`
       border-bottom: 1px solid ${({ theme }) => theme.colors.black};
     }
   }
-  .input-row--checkbox {
+`;
+
+const CheckBoxList = styled.ul`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const CheckBoxListItem = styled.li`
+  .checkbox {
     display: flex;
     gap: 1rem;
   }
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
 `;
