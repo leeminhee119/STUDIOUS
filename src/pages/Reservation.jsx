@@ -5,7 +5,7 @@ import RemoteControl from "components/reservation/RemoteControl";
 import { useState, useEffect } from "react";
 import useRedirectLogin from "hooks/useRedirectLogin";
 import Divider from "components/common/Divider";
-import { TextAreaGreyRound } from "components/common/TextArea";
+import { EditableDiv } from "components/common/Editor";
 import theme from "styles/theme";
 import { formatNumberWithCommas } from "utils/formatNumber";
 
@@ -151,7 +151,7 @@ const Reservation = () => {
           </div>
           <div className="right">
             <TitleSub>요청사항</TitleSub>
-            <TextAreaGreyRound
+            <EditableDiv
               placeholder="요청하실 내용을 입력해주세요."
               onChange={(e) =>
                 setUserInfo((userInfo) => ({
@@ -198,7 +198,7 @@ const Reservation = () => {
 
         <RowContainer>
           <TitleSub>환불 규정</TitleSub>
-          <TextAreaGreyRound readOnly={true} />
+          <EditableDiv readOnly={true}></EditableDiv>
         </RowContainer>
       </MainSection>
     </>
