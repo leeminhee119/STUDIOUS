@@ -188,3 +188,13 @@ export const detailsRefundPolicySelector = selector({
     };
   },
 });
+
+export const detailsNoticeSelector = selector({
+  key: "Notice",
+  get: () => {
+    const { notice } = DUMMY_DATA_2;
+    return {
+      notice,
+    };
+  },
+});

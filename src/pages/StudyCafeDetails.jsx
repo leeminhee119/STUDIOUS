@@ -5,6 +5,7 @@ import NavBar from "components/studyCafeDetails/NavBar";
 import StudyRoomReservation from "components/studyCafeDetails/studyRoomReservation/StudyRoomReservation";
 import Reviews from "components/studyCafeDetails/reviews/Reviews";
 import RefundPolicy from "components/studyCafeDetails/refundPolicy/RefundPolicy";
+import Notice from "components/studyCafeDetails/notice/Notice";
 
 const StudyCafeDetails = () => {
   const NAVBAR_CONTENTS = [
@@ -26,7 +27,7 @@ const StudyCafeDetails = () => {
     },
     {
       name: "유의사항",
-      component: <StudyRoomReservation />,
+      component: <Notice />,
     },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
