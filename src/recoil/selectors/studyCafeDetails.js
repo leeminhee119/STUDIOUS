@@ -14,17 +14,24 @@ const DUMMY_DATA_2 = {
     "랭스는 Language(s)에 s를 붙인 복수형의 줄임말로 언어 공부나 대화가 필요한 다양한 활동을 할 수 있는 공간으로 만들고자 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다. 스터디에 적합한 공간으로 시작되었습니다.",
   conveniences: ["룸 편의시설 이름1", "룸 편의시설 이름2"],
   notification: "(공지 사항)", // 공지사항이 없는 경우 null
-  refundPolicy: {
-    0: 0, // 이용 당일   :   0% 환불
-    1: 50, // 이용 1일 전 :  50% 환불
-    2: 50, // 이용 2일 전 :  50% 환불
-    3: 50, // 이용 3일 전 :  50% 환불
-    4: 50, // 이용 4일 전 :  50% 환불
-    5: 50, // 이용 5일 전 :  50% 환불
-    6: 100, // 이용 6일 전 : 100% 환불
-    7: 100, // 이용 7일 전 : 100% 환불
-    8: 100, // 이용 8일 전 : 100% 환불
-  },
+  refundPolicy: [
+    {
+      day: "이용 1일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 2일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 3일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 4일 전",
+      rate: "10%",
+    },
+  ],
   notice: ["유의 사항1", "유의 사항2"],
   rooms: [
     {
@@ -168,6 +175,16 @@ export const detailsReviewsSelector = selector({
       deafening,
       fixturesStatus,
       total,
+    };
+  },
+});
+
+export const detailsRefundPolicySelector = selector({
+  key: "RefundPolicy",
+  get: () => {
+    const { refundPolicy } = DUMMY_DATA_2;
+    return {
+      refundPolicy,
     };
   },
 });

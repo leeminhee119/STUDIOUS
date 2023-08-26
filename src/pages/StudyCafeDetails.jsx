@@ -4,6 +4,7 @@ import CommonInformation from "components/studyCafeDetails/commonInfomation/Comm
 import NavBar from "components/studyCafeDetails/NavBar";
 import StudyRoomReservation from "components/studyCafeDetails/studyRoomReservation/StudyRoomReservation";
 import Reviews from "components/studyCafeDetails/reviews/Reviews";
+import RefundPolicy from "components/studyCafeDetails/refundPolicy/RefundPolicy";
 
 const StudyCafeDetails = () => {
   const NAVBAR_CONTENTS = [
@@ -17,11 +18,11 @@ const StudyCafeDetails = () => {
     },
     {
       name: "진행 중인 이벤트",
-      component: <StudyRoomReservation />,
+      component: <div />,
     },
     {
       name: "환불 정책",
-      component: <StudyRoomReservation />,
+      component: <RefundPolicy />,
     },
     {
       name: "유의사항",
