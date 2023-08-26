@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Fragment } from "react";
 
 const RefundPolicyBox = ({ refundPolicy }) => {
-  console.log("refundPolicy", refundPolicy);
   return (
     <EditableDiv readOnly={true}>
       <div>
