@@ -11,17 +11,24 @@ import { formatNumberWithCommas } from "utils/formatNumber";
 
 const DUMMY_DATA = {
   cafeName: "(스터디카페 이름)",
-  refundPolicy: {
-    0: 0, // 이용 당일   :   0% 환불
-    1: 50, // 이용 1일 전 :  50% 환불
-    2: 50, // 이용 2일 전 :  50% 환불
-    3: 50, // 이용 3일 전 :  50% 환불
-    4: 50, // 이용 4일 전 :  50% 환불
-    5: 50, // 이용 5일 전 :  50% 환불
-    6: 100, // 이용 6일 전 : 100% 환불
-    7: 100, // 이용 7일 전 : 100% 환불
-    8: 100, // 이용 8일 전 : 100% 환불
-  },
+  refundPolicy: [
+    {
+      day: "이용 1일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 2일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 3일 전",
+      rate: "10%",
+    },
+    {
+      day: "이용 4일 전",
+      rate: "10%",
+    },
+  ],
   roomPhoto: "https://via.placeholder.com/300x200",
   roomName: "(스터디룸 이름)",
   conveniences: ["편의시설 이름1", "편의시설 이름2"],
@@ -198,7 +205,30 @@ const Reservation = () => {
 
         <RowContainer>
           <TitleSub>환불 규정</TitleSub>
-          <EditableDiv readOnly={true}></EditableDiv>
+          <EditableDiv readOnly={true}>
+            <div>
+              <div style={{ color: "red" }}>
+                *이용 당일 이후의 환불 관련 사항은 호스트에게 적접 문의하셔야
+                합니다.
+              </div>
+              <div>
+                결제 후 2시간 이내에는 100% 환불이 가능합니다. (단, 이용시간
+                전까지만 가능)
+              </div>
+            </div>
+            <div>
+              <RefundPolicyList>
+                {refundPolicy.map(({ day, rate }) => {
+                  return (
+                    <>
+                      <div>{day}</div>
+                      <div>{`총 금액의 ${rate} 환불`}</div>
+                    </>
+                  );
+                })}
+              </RefundPolicyList>
+            </div>
+          </EditableDiv>
         </RowContainer>
       </MainSection>
     </>
@@ -280,4 +310,11 @@ const CheckBoxListItem = styled.li`
   display: flex;
   gap: 1rem;
   justify-content: space-between;
+`;
+
+const RefundPolicyList = styled.ul`
+  margin-top: 4.5rem;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  row-gap: 1rem;
 `;
