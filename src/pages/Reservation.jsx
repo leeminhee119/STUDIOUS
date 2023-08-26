@@ -8,6 +8,7 @@ import Divider from "components/common/Divider";
 import { EditableDiv } from "components/common/Editor";
 import theme from "styles/theme";
 import { formatNumberWithCommas } from "utils/formatNumber";
+import { Fragment } from "react";
 
 const DUMMY_DATA = {
   cafeName: "(스터디카페 이름)",
@@ -178,20 +179,14 @@ const Reservation = () => {
         <RowContainer>
           <TitleSub>유료 편의 시설</TitleSub>
           <CheckBoxList>
-            {paidConveniences.map((paidConvenience) => {
+            {paidConveniences.map(({ name, price }, index) => {
               return (
-                <CheckBoxListItem>
+                <CheckBoxListItem key={index}>
                   <div className="checkbox">
-                    <input
-                      type="checkbox"
-                      id={paidConvenience.name}
-                      onChange={handleCheckSameAsPersonalInfo}
-                    />
-                    <label htmlFor={paidConvenience.name}>
-                      {paidConvenience.name}
-                    </label>
+                    <input type="checkbox" id={name} />
+                    <label htmlFor={name}>{name}</label>
                   </div>
-                  <span>₩ {formatNumberWithCommas(paidConvenience.price)}</span>
+                  <span>₩ {formatNumberWithCommas(price)}</span>
                 </CheckBoxListItem>
               );
             })}
@@ -218,12 +213,12 @@ const Reservation = () => {
             </div>
             <div>
               <RefundPolicyList>
-                {refundPolicy.map(({ day, rate }) => {
+                {refundPolicy.map(({ day, rate }, index) => {
                   return (
-                    <>
+                    <Fragment key={index}>
                       <div>{day}</div>
                       <div>{`총 금액의 ${rate} 환불`}</div>
-                    </>
+                    </Fragment>
                   );
                 })}
               </RefundPolicyList>
