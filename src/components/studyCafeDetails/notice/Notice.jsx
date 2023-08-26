@@ -10,7 +10,7 @@ const Notice = () => {
       <NoticeLayout>
         {notice.map((noticeItem, index) => {
           return (
-            <NoticeRow>
+            <NoticeRow key={index}>
               <div className="no">{`${index + 1}.`}</div>
               <div>{noticeItem}</div>
             </NoticeRow>
@@ -27,6 +27,7 @@ const NoticeLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  padding: 2rem;
 `;
 const NoticeRow = styled.div`
   ${({ theme }) => theme.fonts.heading2};
