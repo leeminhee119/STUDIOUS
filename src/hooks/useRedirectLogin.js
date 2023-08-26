@@ -16,7 +16,9 @@ const useRedirectLogin = (isDirectAccessWithUrl = false) => {
           // 해당 url로 바로 접속했을 경우엔 이전 페이지가 없으므로 홈으로 리다이렉트 시킵니다.
           if (isDirectAccessWithUrl) navigate("/");
         }
+        return true;
       }
+      return false;
     } catch (error) {
       console.error(error);
     }

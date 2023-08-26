@@ -21,8 +21,9 @@ const StudyRoomItem = ({
   const navigate = useNavigate();
   const { handleRedirect } = useRedirectLogin();
   const handleClickReservation = () => {
-    handleRedirect();
-    navigate(`/studyCafe/${id}/reservation`);
+    if (!handleRedirect()) {
+      navigate(`/studyCafe/${id}/reservation`);
+    }
   };
   return (
     <ItemContainer>
