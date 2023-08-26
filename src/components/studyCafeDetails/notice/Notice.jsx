@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TabContainer from "../TabContainer";
 import { EditableDiv } from "components/common/Editor";
 import { detailsNoticeSelector } from "recoil/selectors/studyCafeDetails";
 import { useRecoilValue } from "recoil";
@@ -6,18 +7,20 @@ import { useRecoilValue } from "recoil";
 const Notice = () => {
   const { notice } = useRecoilValue(detailsNoticeSelector);
   return (
-    <EditableDiv readOnly={true}>
-      <NoticeLayout>
-        {notice.map((noticeItem, index) => {
-          return (
-            <NoticeRow key={index}>
-              <div className="no">{`${index + 1}.`}</div>
-              <div>{noticeItem}</div>
-            </NoticeRow>
-          );
-        })}
-      </NoticeLayout>
-    </EditableDiv>
+    <TabContainer title="유의사항">
+      <EditableDiv readOnly={true}>
+        <NoticeLayout>
+          {notice.map((noticeItem, index) => {
+            return (
+              <NoticeRow key={index}>
+                <div className="no">{`${index + 1}.`}</div>
+                <div>{noticeItem}</div>
+              </NoticeRow>
+            );
+          })}
+        </NoticeLayout>
+      </EditableDiv>
+    </TabContainer>
   );
 };
 
